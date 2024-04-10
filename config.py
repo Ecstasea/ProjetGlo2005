@@ -9,4 +9,4 @@ class Config:
     MYSQL_DATABASE_PORT = os.environ.get('PORT')
     MYSQL_DATABASE_USER = os.environ.get('USER')
     MYSQL_DATABASE_PASSWORD = os.environ.get('PASSWORD')
-    MYSQL_DATABASE_DB = os.environ.get('DATABASE')
+    MYSQL_DATABASE_DB = os.environ.get('database.sql')
