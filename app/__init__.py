@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+
 import pymysql
+
 import os
 from .db.database import Database
 
@@ -20,13 +22,15 @@ def create_app():
     def accueil():
         return render_template('accueil.html')
 
+    # Modifiez votre fonction login()
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'POST':
             email = request.form['email']
             password = request.form['password']
 
-            cursor = connection.cursor(pymysql.cursors.DictCursor)
+            # Utilisez la connexion à la base de données pour créer le curseur
+            cursor = db.connection.cursor(pymysql.cursors.DictCursor)
             cursor.execute('SELECT * FROM utilisateurs WHERE email = %s AND mot_de_passe = %s', (email, password))
             user = cursor.fetchone()
             cursor.close()
@@ -40,7 +44,7 @@ def create_app():
         else:
             return render_template('login.html')
 
-
+    # Modifiez votre fonction register()
     @app.route('/register', methods=['GET', 'POST'])
     def register():
         if request.method == 'POST':
@@ -53,7 +57,8 @@ def create_app():
             photo_de_profil = ''
             bool_cuisinier = request.form.get('bool_cuisinier', False)
 
-            cursor = connection.cursor()
+            # Utilisez la connexion à la base de données pour créer le curseur
+            cursor = db.connection.cursor()
             cursor.execute(
                 'INSERT INTO Utilisateurs (nom, prenom, email, age, pseudo, mot_de_passe, photo_de_profil, bool_cuisinier) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
                 (nom, prenom, email, age, pseudo, mot_de_passe, photo_de_profil, bool_cuisinier))
@@ -62,6 +67,7 @@ def create_app():
             return redirect(url_for('login'))
         else:
             return render_template('register.html')
+
 
     @app.route('/dashboard')
     def dashboard():
