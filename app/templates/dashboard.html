@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Titre du site</h2>
+    {% if user %}
+        <p>Hello {{ user.pseudo }}, {% if user.bool_cuisinier %}you are a cook.{% endif %}</p>
+        <a href="{{ url_for('account') }}">Edit Account</a><br><br>
+        <form action="{{ url_for('search') }}" method="GET">
+            <input type="text" name="query" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+        <br>
+        <div>
+            <a href="{{ url_for('recipes') }}">Recipes</a> | <a href="{{ url_for('create_recipe') }}">Create Recipe</a>
+        </div>
+    {% else %}
+        <p>Please <a href="{{ url_for('login') }}">login</a> to access the dashboard.</p>
+    {% endif %}
+</body>
+</html>

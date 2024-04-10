@@ -74,4 +74,5 @@ CREATE TABLE Recettes (
     FOREIGN KEY (difficulte_recette) REFERENCES Difficulte_recettes(id),
     FOREIGN KEY (ingredient) REFERENCES Recette_ingredients (id_ingredient)
 );
-SHOW TABLES;
+
+
