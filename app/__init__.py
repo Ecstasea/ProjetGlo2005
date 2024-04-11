@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
-import pymysql
+import pymysql 
 
 import os
 from .db.database import Database
