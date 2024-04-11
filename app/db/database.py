@@ -26,7 +26,6 @@ class Database:
             age INT,
             pseudo VARCHAR(20) UNIQUE,
             mot_de_passe VARCHAR(255),
-            photo_de_profil VARCHAR(255),
             bool_cuisinier BOOLEAN
         )
         """
