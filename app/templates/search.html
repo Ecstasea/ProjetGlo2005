@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="search-page">
+    <div class="container">
+        <h1>Search Results</h1>
+
+        {% if ingredient_results %}
+        <h2>Ingredients</h2>
+        <ul>
+            {% for ingredient in ingredient_results %}
+                <li>{{ ingredient[1] }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if recipe_results %}
+        <h2>Recipes</h2>
+        <ul>
+            {% for recipe in recipe_results %}
+                <li>{{ recipe[1] }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if not ingredient_results and not recipe_results %}
+        <p class="message">No results found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

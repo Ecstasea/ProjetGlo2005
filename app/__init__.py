@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
-import pymysql 
+import pymysql
 
 import os
 from .db.database import Database
+
 
 def create_app():
     app = Flask(__name__)
@@ -11,9 +12,9 @@ def create_app():
 
     db = Database(app)
     db.create_tables()
-   # db.insert_fake_users()
 
-   
+    # db.insert_fake_users()
+
     @app.route('/')
     def home():
         return redirect(url_for('accueil'))
@@ -32,6 +33,22 @@ def create_app():
 
 
 
+
+    @app.route('/search', methods=['POST'])
+    def search():
+        query = request.form['search_query']
+        cursor = db.cursor()
+
+        #recherche ingredients
+        cursor.execute("SELECT * FROM ingredients WHERE name LIKE %s", ('%' + query + '%',))
+        ingredient_results = cursor.fetchall()
+
+        #recherche recettes
+        cursor.execute("SELECT * FROM recipes WHERE name LIKE %s", ('%' + query + '%',))
+        recipe_results = cursor.fetchall()
+
+        return render_template('search_results.html', ingredient_results=ingredient_results,
+                               recipe_results=recipe_results)
 
     # Modifiez votre fonction login()
     @app.route('/login', methods=['GET', 'POST'])
@@ -79,12 +96,11 @@ def create_app():
         else:
             return render_template('register.html')
 
-
     @app.route('/dashboard')
     def dashboard():
         if 'user_id' in session:
             user_id = session['user_id']
-            cursor = connection.cursor(pymysql.cursors.DictCursor)
+            cursor = db.connection.cursor(pymysql.cursors.DictCursor)
             cursor.execute('SELECT * FROM Utilisateurs WHERE id = %s', (user_id,))
             user = cursor.fetchone()
             cursor.close()
@@ -99,13 +115,6 @@ def create_app():
     def account():
         return render_template('account.html')
 
-    @app.route('/search', methods=['GET'])
-    def search():
-        query = request.args.get('query')
-        # Code pour effectuer une recherche
-        # Retourne les résultats de la recherche dans un modèle de page approprié
-        return render_template('search_results.html', query=query)
-
     @app.route('/recipes')
     def recipes():
         # Code pour afficher la liste des recettes
@@ -113,13 +122,17 @@ def create_app():
 
     @app.route('/create_recipe')
     def create_recipe():
-            # Code pour afficher le formulaire de création de recette
-            return render_template('create_recipe.html')
+        # Code pour afficher le formulaire de création de recette
+        return render_template('create_recipe.html')
 
+    @app.route('/ingredients')
+    def show_ingredients():
+        ingredients = db.get_all_ingredients()
+        return render_template('ingredients.html', ingredients=ingredients)
 
     @app.route('/logout')
     def logout():
         session.pop('user_id', None)
         return redirect(url_for('login'))
-    
+
     return app
