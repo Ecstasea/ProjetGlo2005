@@ -45,7 +45,7 @@ CREATE TABLE Cuisiniers (
 	nombre_recette INTEGER,
 	bio VARCHAR(255),
 	photo_profil VARCHAR(2048),
-	anne_experience tinyint,
+	annee_experience tinyint,
 	specialite INT ,
 	FOREIGN KEY (id) REFERENCES Utilisateurs(id),
 	FOREIGN KEY (specialite) REFERENCES Categorie_recettes(id)
@@ -288,7 +288,7 @@ INSERT INTO Utilisateurs (nom, prenom, email, age, pseudo, mot_de_passe, bool_cu
 
 SELECT * FROM utilisateurs;
 
-INSERT INTO Cuisiniers (id, nombre_recette, bio, photo_profil, anne_experience, specialite) VALUES
+INSERT INTO Cuisiniers (id, nombre_recette, bio, photo_profil, annee_experience, specialite) VALUES
 (1, 1, "Je suis passionné par la cuisine depuis mon enfance. J'ai travaillé dans plusieurs restaurants étoilés et je suis spécialisé dans la cuisine française.", '../static/photos/avatar_1.png', 10, 5),
 (3, 1, "J'adore expérimenter de nouvelles recettes et découvrir de nouvelles saveurs. Ma spécialité est la cuisine asiatique, en particulier la cuisine japonaise.", '../static/photos/avatar_1.png', 7, 3),
 (4, 1, "Je suis une cuisinière autodidacte avec une passion pour les recettes traditionnelles mexicaines. J'ai une expérience de 5 ans dans le domaine de la cuisine.", '../static/photos/avatar_1.png', 5, 1),

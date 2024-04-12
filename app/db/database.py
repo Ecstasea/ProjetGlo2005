@@ -62,6 +62,7 @@ class Database:
         """
         self.cursor.execute(create_table_query)
 
+
     def create_difficulte_recettes_table(self):
         create_table_query = """
         CREATE TABLE IF NOT EXISTS Difficulte_recettes (
@@ -88,7 +89,7 @@ class Database:
             nombre_recette INTEGER,
             bio VARCHAR(255),
             photo_profil VARCHAR(2048),
-            anne_experience tinyint,
+            annee_experience tinyint,
             specialite INT ,
             FOREIGN KEY (id) REFERENCES Utilisateurs(id),
             FOREIGN KEY (specialite) REFERENCES Categorie_recettes(id)
