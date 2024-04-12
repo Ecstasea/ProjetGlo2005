@@ -164,7 +164,12 @@ def create_app():
 
     @app.route('/ingredients')
     def show_ingredients():
-        ingredients = db.get_all_ingredients()
+        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        cursor.execute(
+            "SELECT nom "
+            "FROM Ingredients ")
+        ingredients = cursor.fetchall()
+        cursor.close()
         return render_template('ingredients.html', ingredients=ingredients)
 
     @app.route('/logout')
