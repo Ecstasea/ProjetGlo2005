@@ -1,5 +1,6 @@
 import pymysql
 
+
 class Database:
     def __init__(self, app):
         self.connection = pymysql.connect(
@@ -145,4 +146,14 @@ class Database:
         ('Smith', 'Jane', 'jane@example.com', 25, 'jane_smith', 'mot_de_passe_2', 'photo2.jpg', FALSE)
         """
         self.cursor.execute(insert_users_query)
+        self.connection.commit()
+
+    def get_all_ingredients(self):
+        self.cursor.execute("SELECT nom FROM Ingredients")
+        ingredients = [ingredient[0] for ingredient in self.cursor.fetchall()]
+        return ingredients
+
+    def insert_ingredient(self, ingredient_name):
+        insert_query = "INSERT INTO Ingredients (nom) VALUES (%s)"
+        self.cursor.execute(insert_query, (ingredient_name,))
         self.connection.commit()

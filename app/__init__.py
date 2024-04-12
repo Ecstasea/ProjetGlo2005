@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
-import pymysql 
+import pymysql
 
 import os
 from .db.database import Database
+
 
 def create_app():
     app = Flask(__name__)
@@ -11,9 +12,9 @@ def create_app():
 
     db = Database(app)
     db.create_tables()
-   # db.insert_fake_users()
 
-   
+    # db.insert_fake_users()
+
     @app.route('/')
     def home():
         return redirect(url_for('accueil'))
@@ -30,8 +31,55 @@ def create_app():
         cursor.close()
         return render_template('accueil.html', recettes=recettes)
 
+    @app.route('/search', methods=['POST'])
+    def search():
+        query = request.form['search_query']
+        cursor = db.cursor()
 
+        #recherche ingredients
+        cursor.execute("SELECT * FROM ingredients WHERE name LIKE %s", ('%' + query + '%',))
+        ingredient_results = cursor.fetchall()
 
+        #recherche recettes
+        cursor.execute("SELECT * FROM recipes WHERE name LIKE %s", ('%' + query + '%',))
+        recipe_results = cursor.fetchall()
+
+        return render_template('search_results.html', ingredient_results=ingredient_results,
+                               recipe_results=recipe_results)
+
+    @app.route('/recette/<int:id>')
+    def recette(id):
+        # Recuperation des ingredients
+        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        cursor.execute(
+            "SELECT i.nom, ri.quantite "
+            "FROM Ingredients i, Recette_ingredients ri "
+            "WHERE ri.id_recette = %s AND ri.id_ingredient = i.id", (id,)
+        )
+        ingredients = cursor.fetchall()
+        cursor.close()
+
+        # Recuperation de la recette
+        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        cursor.execute(
+            "SELECT r.nom, r.temps_preparation, r.portion, r.photo, r.etapes, dr.type as difficulte, tr.type as type, cat.type as categorie "
+            "FROM Recettes r, Difficulte_recettes dr, Categorie_recettes cat, Type_recettes tr "
+            "WHERE r.id = %s AND r.type_recette = tr.id AND r.categorie_recette = cat.id AND r.difficultee_recette = dr.id", (id,)
+        )
+        recette = cursor.fetchone()
+        cursor.close()
+
+        # Recuperation du cuisinier
+        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        cursor.execute(
+            "SELECT u.pseudo, c.photo_profil "
+            "FROM Cuisinier_recettes cr, Cuisiniers c, Utilisateurs u "
+            "WHERE cr.id_recette = %s AND cr.id_cuisinier = c.id AND c.id = u.id", (id,)
+        )
+        cuisinier = cursor.fetchone()
+        cursor.close()
+
+        return render_template('recette.html', ingredients= ingredients, recette=recette, cuisinier=cuisinier)
 
     # Modifiez votre fonction login()
     @app.route('/login', methods=['GET', 'POST'])
@@ -79,45 +127,12 @@ def create_app():
         else:
             return render_template('register.html')
 
-    @app.route('/recette/<int:id>')
-    def recette(id):
-        # Recuperation des ingredients
-        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
-        cursor.execute(
-            "SELECT i.nom, ri.quantite "
-            "FROM Ingredients i, Recette_ingredients ri "
-            "WHERE ri.id_recette = %s AND ri.id_ingredient = i.id", (id,)
-        )
-        ingredients = cursor.fetchall()
-        cursor.close()
-
-        # Recuperation de la recette
-        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
-        cursor.execute(
-            "SELECT r.nom, r.temps_preparation, r.portion, r.photo, r.etapes, dr.type as difficulte, tr.type as type, cat.type as categorie "
-            "FROM Recettes r, Difficulte_recettes dr, Categorie_recettes cat, Type_recettes tr "
-            "WHERE r.id = %s AND r.type_recette = tr.id AND r.categorie_recette = cat.id AND r.difficultee_recette = dr.id", (id,)
-        )
-        recette = cursor.fetchone()
-        cursor.close()
-
-        # Recuperation du cuisinier
-        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
-        cursor.execute(
-            "SELECT u.pseudo, c.photo_profil "
-            "FROM Cuisinier_recettes cr, Cuisiniers c, Utilisateurs u "
-            "WHERE cr.id_recette = %s AND cr.id_cuisinier = c.id AND c.id = u.id", (id,)
-        )
-        cuisinier = cursor.fetchone()
-        cursor.close()
-
-        return render_template('recette.html', ingredients= ingredients, recette=recette, cuisinier=cuisinier)
 
     @app.route('/dashboard')
     def dashboard():
         if 'user_id' in session:
             user_id = session['user_id']
-            cursor = connection.cursor(pymysql.cursors.DictCursor)
+            cursor = db.connection.cursor(pymysql.cursors.DictCursor)
             cursor.execute('SELECT * FROM Utilisateurs WHERE id = %s', (user_id,))
             user = cursor.fetchone()
             cursor.close()
@@ -132,13 +147,6 @@ def create_app():
     def account():
         return render_template('account.html')
 
-    @app.route('/search', methods=['GET'])
-    def search():
-        query = request.args.get('query')
-        # Code pour effectuer une recherche
-        # Retourne les résultats de la recherche dans un modèle de page approprié
-        return render_template('search_results.html', query=query)
-
     @app.route('/recipes')
     def recipes():
         # Code pour afficher la liste des recettes
@@ -146,13 +154,17 @@ def create_app():
 
     @app.route('/create_recipe')
     def create_recipe():
-            # Code pour afficher le formulaire de création de recette
-            return render_template('create_recipe.html')
+        # Code pour afficher le formulaire de création de recette
+        return render_template('create_recipe.html')
 
+    @app.route('/ingredients')
+    def show_ingredients():
+        ingredients = db.get_all_ingredients()
+        return render_template('ingredients.html', ingredients=ingredients)
 
     @app.route('/logout')
     def logout():
         session.pop('user_id', None)
         return redirect(url_for('login'))
-    
+
     return app

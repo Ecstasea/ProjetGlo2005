@@ -1,0 +1,49 @@
+/* styles.css */
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+/* Container */
+.search-page .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.search-page h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Section headings */
+.search-page h2 {
+    margin-top: 30px;
+    color: #666;
+}
+
+/* List */
+.search-page ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* List items */
+.search-page ul li {
+    margin-bottom: 10px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Message */
+.search-page .message {
+    text-align: center;
+    color: #666;
+}

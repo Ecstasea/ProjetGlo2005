@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()  # Charge les variables d'environnement depuis le fichier .env
 
+
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'une_cle_secrete'
     MYSQL_DATABASE_HOST = os.environ.get('HOST')
