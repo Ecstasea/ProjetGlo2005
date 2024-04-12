@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ recette.nom }}</title>
+    <link rel="stylesheet" href="../static/css/recette.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="container">
+            <h1>{{ recette.nom }}</h1>
+            <img src="{{ recette.photo }}" alt="Photo de la recette {{ recette.nom }}">
+            <h2>Ingrédients :</h2>
+            <ul>
+                {% for ingredient in ingredients %}
+                    <li>{{ ingredient.nom }} - {{ ingredient.quantite }}</li>
+                {% endfor %}
+            </ul>
+            <h2>Temps de préparation : </h2>
+            <p>{{ recette.temps_preparation }} minutes</p>
+            <h2>Portion :</h2>
+            <p>{{ recette.portion }} personnes</p>
+            <h2>Difficulté :</h2>
+            <p>{{ recette.difficulte }}</p>
+            <h2>Catégorie :</h2>
+            <p>{{ recette.categorie }}</p>
+            <h2>Type :</h2>
+            <p>{{ recette.type }}</p>
+            <h2>Étapes :</h2>
+            <p>{{ recette.etapes }}</p>
+        </div>
+        <div class="cuisinier">
+            <h2>Cuisinier :</h2>
+            <img src="{{ cuisinier.photo_profil }}" alt="Photo de profil de {{ cuisinier.pseudo }}">
+            <p>{{ cuisinier.pseudo }}</p>
+            <a href="#" class="button">Voir le profil</a>
+        </div>
+    </div>
+    <a href="{{ url_for('accueil') }}" class="home-button">Retour à l'accueil</a>
+</body>
+</html>
