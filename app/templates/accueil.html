@@ -14,7 +14,8 @@
             <h1 id="titre">Recettes de chez Nous</h1>
             <ul>
                 <li><a href="#">Recettes</a></li>
-                <li><a href="#">Ingrédients</a></li>
+                <!-- Modified part: Link to the ingredient list page -->
+                <li><a href="{{ url_for('show_ingredients') }}">Ingrédients</a></li>
                 <li><a href="#">Catégories</a></li>
                 <li><a href="{{ url_for('login') }}">Connexion</a></li>
             </ul>
@@ -25,8 +26,10 @@
     <div class="container">
         <!-- Barre de recherche -->
         <div class="search-bar">
-            <input type="text" placeholder="Rechercher une recette...">
-            <button><i class="fas fa-search"></i></button>
+            <form action="{{ url_for('search') }}" method="POST">
+                <input type="text" name="search_query" placeholder="Search for ingredients or recipes...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
         </div>
         <!-- Section de présentation des recettes -->
         <section class="recipes">

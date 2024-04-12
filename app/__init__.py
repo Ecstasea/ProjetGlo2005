@@ -31,20 +31,22 @@ def create_app():
         cursor.close()
         return render_template('accueil.html', recettes=recettes)
 
-
-
-
     @app.route('/search', methods=['POST'])
     def search():
-        query = request.form['search_query']
-        cursor = db.cursor()
+        query = request.form.get('search_query')
+        print("Received search query:", query)  # Add this line for debugging
+        if not query:
+            return render_template('search_results.html')
 
-        #recherche ingredients
-        cursor.execute("SELECT * FROM ingredients WHERE name LIKE %s", ('%' + query + '%',))
+        db = Database(app)
+        cursor = db.connection.cursor()
+
+        # Recherche des ingrédients
+        cursor.execute("SELECT * FROM Ingredients WHERE nom LIKE %s", ('%' + query + '%',))
         ingredient_results = cursor.fetchall()
 
-        #recherche recettes
-        cursor.execute("SELECT * FROM recipes WHERE name LIKE %s", ('%' + query + '%',))
+        # Recherche des recettes
+        cursor.execute("SELECT * FROM Recettes WHERE nom LIKE %s", ('%' + query + '%',))
         recipe_results = cursor.fetchall()
 
         return render_template('search_results.html', ingredient_results=ingredient_results,
