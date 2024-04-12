@@ -120,7 +120,7 @@ class Database:
             FOREIGN KEY (type_recette) REFERENCES Type_recettes(id),
             FOREIGN KEY (categorie_recette) REFERENCES Categorie_recettes(id),
             FOREIGN KEY (difficultee_recette) REFERENCES Difficulte_recettes(id),
-            FOREIGN KEY (ingredient) REFERENCES Recette_ingredients (id_ingredient)
+            FOREIGN KEY (ingredient) REFERENCES Recette_ingredients (id_recette)
         )
         """
         self.cursor.execute(create_table_query)
