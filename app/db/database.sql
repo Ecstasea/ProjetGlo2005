@@ -64,13 +64,13 @@ CREATE TABLE Recettes (
     type_recette INT,
     categorie_recette INT,
     Portion ENUM('1', '2', '4', '8'),
-    difficulte_recette INT,
+    difficultee_recette INT,
     ingredient INT,
     photo VARCHAR(2048),
     etapes VARCHAR(2048),
     FOREIGN KEY (type_recette) REFERENCES Type_recettes(id),
     FOREIGN KEY (categorie_recette) REFERENCES Categorie_recettes(id),
-    FOREIGN KEY (difficulte_recette) REFERENCES Difficulte_recettes(id),
+    FOREIGN KEY (difficultee_recette) REFERENCES Difficulte_recettes(id),
     FOREIGN KEY (ingredient) REFERENCES Recette_ingredients (id_recette)
 );
 

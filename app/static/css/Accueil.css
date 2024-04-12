@@ -12,14 +12,13 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     color: #333;
-    text-align: center;
 }
 
 /* Style de la barre de navigation */
 nav {
     background-color: #007bff;
-    padding: 20px;
     color: #fff;
+    padding: 20px;
 }
 
 nav h1 {
@@ -55,6 +54,17 @@ nav ul li a:hover {
     padding: 20px;
 }
 
+/* Style du titre */
+#titre {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: white; /* Couleur bleue */
+    text-transform: uppercase; /* Convertit le texte en majuscules */
+    letter-spacing: 2px; /* Espacement entre les lettres */
+    font-family: 'Arial Black', sans-serif; /* Police de caractères */
+}
+
 /* Style de la barre de recherche */
 .search-bar {
     margin-top: 20px;
@@ -72,7 +82,7 @@ nav ul li a:hover {
 }
 
 .search-bar button {
-    padding: 10px 20px;
+    padding: 8px 12px; /* Réduit la taille horizontale du bouton */
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -89,12 +99,75 @@ nav ul li a:hover {
 /* Style de la section de présentation des recettes */
 .recipes {
     margin-top: 40px;
-    text-align: left;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
 }
 
-.recipes h2 { 
+.recipe-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    overflow: hidden;
+    text-align: center; /* Centrer le contenu */
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+}
+
+.recipe-card img {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.recipe-card-content {
+    padding: 20px;
+}
+
+.recipe-card h3 {
+    margin-bottom: 10px;
     font-size: 1.5em;
-    margin-bottom: 20px;
+    color: #333;
+}
+
+.recipe-card p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 10px; /* Augmente l'espace entre la difficulté et le bouton */
+}
+
+/* Style de la difficulté */
+.difficulty {
+    margin-bottom: 10px; /* Espace entre la difficulté et le bouton */
+}
+
+.difficulty-level {
+    background-color: #28a745; /* Vert */
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Style du bouton */
+.recipe-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px; /* Conserve la taille verticale du bouton */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8em; /* Réduit la taille du texte du bouton */
+    transition: background-color 0.3s;
+    width: fit-content; /* Taille horizontale ajustée au contenu */
+    margin: 10px auto 0; /* Espace en haut, centré horizontalement */
+    display: block; /* Affiche le bouton en bloc (une ligne) */
+}
+
+.recipe-button:hover {
+    background-color: #0056b3;
 }
 
 /* Style du pied de page */

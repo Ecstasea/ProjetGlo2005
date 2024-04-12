@@ -20,7 +20,18 @@ def create_app():
 
     @app.route('/accueil')
     def accueil():
-        return render_template('accueil.html')
+        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        cursor.execute(
+            "SELECT r.nom, r.photo, d.type AS difficulte "
+            "FROM Recettes r "
+            "JOIN Difficulte_recettes d ON r.difficultee_recette = d.id"
+        )
+        recettes = cursor.fetchall()
+        cursor.close()
+        return render_template('accueil.html', recettes=recettes)
+
+
+
 
     # Modifiez votre fonction login()
     @app.route('/login', methods=['GET', 'POST'])

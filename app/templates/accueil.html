@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recettes de chez Nous - Accueil</title>
-    <link rel="stylesheet" href="../static/css/Accueil.css">
+    <link rel="stylesheet" href="../static/css/accueil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <!-- Barre de navigation -->
     <nav>
         <div class="container">
-            <h1>Recettes de chez Nous</h1>
+            <h1 id="titre">Recettes de chez Nous</h1>
             <ul>
                 <li><a href="#">Recettes</a></li>
                 <li><a href="#">Ingrédients</a></li>
@@ -28,12 +28,20 @@
             <input type="text" placeholder="Rechercher une recette...">
             <button><i class="fas fa-search"></i></button>
         </div>
-
         <!-- Section de présentation des recettes -->
         <section class="recipes">
-            <h2>Recettes populaires</h2>
-            <!-- Insérer ici des vignettes de recettes populaires -->
-        </section>
+            {% for recette in recettes %}
+            <div class="recipe-card">
+                <img src="{{ recette.photo }}" alt="Photo de {{ recette.nom }}">
+                <h3>{{ recette.nom }}</h3>
+                <div class="difficulty">
+                    <span class="difficulty-level">{{ recette.difficulte }}</span>
+                    <button class="recipe-button">Voir la recette</button>
+                </div>
+            </div>
+            {% endfor %}
+        </section>       
+
     </div>
 
     <!-- Pied de page -->
