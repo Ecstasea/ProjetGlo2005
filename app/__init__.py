@@ -23,7 +23,7 @@ def create_app():
     def accueil():
         cursor = db.connection.cursor(pymysql.cursors.DictCursor)
         cursor.execute(
-            "SELECT r.nom, r.photo, d.type AS difficulte "
+            "SELECT r.nom, r.photo, d.type AS difficulte, r.id "
             "FROM Recettes r "
             "JOIN Difficulte_recettes d ON r.difficultee_recette = d.id"
         )
@@ -51,6 +51,40 @@ def create_app():
 
         return render_template('search_results.html', ingredient_results=ingredient_results,
                                recipe_results=recipe_results)
+
+    @app.route('/recette/<int:id>')
+    def recette(id):
+        # Recuperation des ingredients
+        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        cursor.execute(
+            "SELECT i.nom, ri.quantite "
+            "FROM Ingredients i, Recette_ingredients ri "
+            "WHERE ri.id_recette = %s AND ri.id_ingredient = i.id", (id,)
+        )
+        ingredients = cursor.fetchall()
+        cursor.close()
+
+        # Recuperation de la recette
+        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        cursor.execute(
+            "SELECT r.nom, r.temps_preparation, r.portion, r.photo, r.etapes, dr.type as difficulte, tr.type as type, cat.type as categorie "
+            "FROM Recettes r, Difficulte_recettes dr, Categorie_recettes cat, Type_recettes tr "
+            "WHERE r.id = %s AND r.type_recette = tr.id AND r.categorie_recette = cat.id AND r.difficultee_recette = dr.id", (id,)
+        )
+        recette = cursor.fetchone()
+        cursor.close()
+
+        # Recuperation du cuisinier
+        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        cursor.execute(
+            "SELECT u.pseudo, c.photo_profil "
+            "FROM Cuisinier_recettes cr, Cuisiniers c, Utilisateurs u "
+            "WHERE cr.id_recette = %s AND cr.id_cuisinier = c.id AND c.id = u.id", (id,)
+        )
+        cuisinier = cursor.fetchone()
+        cursor.close()
+
+        return render_template('recette.html', ingredients= ingredients, recette=recette, cuisinier=cuisinier)
 
     # Modifiez votre fonction login()
     @app.route('/login', methods=['GET', 'POST'])
@@ -97,6 +131,7 @@ def create_app():
             return redirect(url_for('login'))
         else:
             return render_template('register.html')
+
 
     @app.route('/dashboard')
     def dashboard():

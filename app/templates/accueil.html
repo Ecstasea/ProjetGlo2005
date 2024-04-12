@@ -39,7 +39,7 @@
                 <h3>{{ recette.nom }}</h3>
                 <div class="difficulty">
                     <span class="difficulty-level">{{ recette.difficulte }}</span>
-                    <button class="recipe-button">Voir la recette</button>
+                    <a href="{{ url_for('recette', id=recette.id) }}" class="recipe-button">Voir la recette</a>
                 </div>
             </div>
             {% endfor %}
