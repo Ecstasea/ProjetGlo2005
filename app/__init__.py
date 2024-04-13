@@ -15,7 +15,6 @@ def create_app():
 
     # db.insert_fake_users()
 
-
     @app.route('/')
     def home():
         session.pop('user_id', None)  # Efface automatiquement 'user_id' de la session
@@ -82,7 +81,8 @@ def create_app():
         cursor.execute(
             "SELECT r.nom, r.temps_preparation, r.portion, r.photo, r.etapes, dr.type as difficulte, tr.type as type, cat.type as categorie "
             "FROM Recettes r, Difficulte_recettes dr, Categorie_recettes cat, Type_recettes tr "
-            "WHERE r.id = %s AND r.type_recette = tr.id AND r.categorie_recette = cat.id AND r.difficultee_recette = dr.id",
+            "WHERE r.id = %s AND r.type_recette = tr.id AND r.categorie_recette = cat.id AND r.difficultee_recette = "
+            "dr.id",
             (id,)
         )
         recette = cursor.fetchone()
@@ -137,7 +137,8 @@ def create_app():
             # Utilisez la connexion à la base de données pour créer le curseur
             cursor = db.connection.cursor()
             cursor.execute(
-                'INSERT INTO Utilisateurs (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier) VALUES (%s, %s, %s, %s, %s, %s, %s)',
+                'INSERT INTO Utilisateurs (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier) VALUES (%s, '
+                '%s, %s, %s, %s, %s, %s)',
                 (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier))
             db.connection.commit()
             cursor.close()
@@ -203,7 +204,6 @@ def create_app():
         ingredients = cursor.fetchall()
         cursor.close()
         return render_template('ingredients.html', ingredients=ingredients)
-        
 
     @app.route('/logout')
     def logout():
