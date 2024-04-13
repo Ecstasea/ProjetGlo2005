@@ -128,6 +128,7 @@ def create_app():
             cursor.execute(
                 'INSERT INTO Utilisateurs (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier) VALUES (%s, %s, %s, %s, %s, %s, %s)',
                 (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier))
+            db.connection.commit()
             cursor.close()
 
             return redirect(url_for('login'))
