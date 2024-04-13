@@ -151,21 +151,26 @@ def create_app():
         if 'user_id' in session:
             user_id = session['user_id']
 
+            # Récupérer toutes les valeurs des champs du formulaire
             nom = request.form['nom']
             prenom = request.form['prenom']
             email = request.form['email']
-
-
+            age = request.form['age']
+            pseudo = request.form['pseudo']
+            mot_de_passe = request.form['mot_de_passe']
+            bool_cuisinier = request.form.get('bool_cuisinier', False)
 
             cursor = db.connection.cursor()
-            cursor.execute('UPDATE utilisateurs SET nom = %s, prenom = %s, email = %s WHERE id = %s',
-                           (nom, prenom, email, user_id))
+            # Exécuter la requête SQL pour mettre à jour tous les attributs de l'utilisateur
+            cursor.execute(
+                'UPDATE utilisateurs SET nom = %s, prenom = %s, email = %s, age = %s, pseudo = %s, mot_de_passe = %s, bool_cuisinier = %s WHERE id = %s',
+                (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier, user_id))
 
             db.connection.commit()
             cursor.close()
             return redirect(url_for('account'))
         else:
-            return redirect(url_for('login'))
+            return redirect(url_for('accueil'))
 
     @app.route('/recipes')
     def recipes():

@@ -4,27 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compte</title>
-    <link rel="stylesheet" href="../static/css/account.css">
+    <link rel="stylesheet" href="../static/css/register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Compte</h2>
-        <form method="POST" action="{{ url_for('update_account') }}">
-            <div class="form-group">
-                <label for="nom">Nom:</label><br>
-                <input type="text" id="nom" name="nom" value="{{ user.nom }}" required><br>
-            </div>
-            <div class="form-group">
-                <label for="prenom">Prénom:</label><br>
-                <input type="text" id="prenom" name="prenom" value="{{ user.prenom }}" required><br>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email" value="{{ user.email }}" required><br>
-            </div>
-            <!-- Ajoutez d'autres champs ici -->
-            <button type="submit">Enregistrer les modifications</button>
-        </form>
-    </div>
+    <h2>Compte</h2>
+    <form method="POST" action="{{ url_for('update_account') }}">
+        <div class="form-group">
+            <label for="nom">Nom:</label><br>
+            <input type="text" id="nom" name="nom" value="{{ user.nom }}" required><br>
+        </div>
+        <div class="form-group">
+            <label for="prenom">Prénom:</label><br>
+            <input type="text" id="prenom" name="prenom" value="{{ user.prenom }}" required><br>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" value="{{ user.email }}" required><br>
+        </div>
+        <div class="form-group">
+            <label for="age">Age:</label><br>
+            <input type="number" id="age" name="age" value="{{ user.age }}" required><br>
+        </div>
+        <div class="form-group">
+            <label for="pseudo">Pseudo:</label><br>
+            <input type="text" id="pseudo" name="pseudo" value="{{ user.pseudo }}" required><br>
+        </div>
+        <div class="form-group">
+            <label for="mot_de_passe">Mot de passe:</label><br>
+            <input type="password" id="mot_de_passe" name="mot_de_passe" required><br>
+        </div>
+        <div class="form-group">
+            <label for="bool_cuisinier">Cuisinier:</label><br>
+            <input type="checkbox" id="bool_cuisinier" name="bool_cuisinier" value="1" {% if user.bool_cuisinier %}checked{% endif %}><br><br>
+        </div>
+        <button type="submit">Enregistrer les modifications</button>
+        <a href="{{ url_for('accueil') }}">Retour à l'accueil</a>
+    </form>
 </body>
 </html>
