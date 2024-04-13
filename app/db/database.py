@@ -128,6 +128,20 @@ class Database:
         """
         self.cursor.execute(create_table_query)
 
+    def create_trigger_Cuisinier(self):
+        self.cursor.execute(       
+            """
+            CREATE TRIGGER IF NOT EXISTS AfterUserInsert
+            AFTER INSERT ON Utilisateurs
+            FOR EACH ROW
+            BEGIN
+                INSERT INTO Cuisiniers (id, nombre_recette, bio, photo_profil, annee_experience, specialite)
+                VALUES (NEW.id, 0, '', '../static/photos/avatar_1.png', 0, null);
+            END;
+            """
+        )
+
+
     def create_tables(self):
         self.create_utilisateurs_table()
         self.create_recette_ingredients_table()
@@ -138,6 +152,7 @@ class Database:
         self.create_cuisiniers_table()
         self.create_ingredients_table()
         self.create_recettes_table()
+        self.create_trigger_Cuisinier()
         self.connection.commit()
 
     def insert_fake_users(self):
