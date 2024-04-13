@@ -1,20 +1,13 @@
 /* Ingredients.css */
 
-/* Réinitialisation des styles par défaut */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Style du corps de la page */
+/* Body */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     color: #333;
 }
 
-/* Style de la barre de navigation */
+/* Navigation */
 nav {
     background-color: #007bff;
     color: #fff;
@@ -47,25 +40,25 @@ nav ul li a:hover {
     color: #f8f9fa;
 }
 
-/* Style de la section principale */
+/* Main section */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Style du titre */
+/* Title */
 #titre {
     text-align: center;
     font-size: 2.5em;
     margin-bottom: 20px;
-    color: white; /* Couleur bleue */
-    text-transform: uppercase; /* Convertit le texte en majuscules */
-    letter-spacing: 2px; /* Espacement entre les lettres */
-    font-family: 'Arial Black', sans-serif; /* Police de caractères */
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Arial Black', sans-serif;
 }
 
-/* Style du titre des ingrédients */
+/* Ingredients title */
 #ingredients-title {
     text-align: center;
     font-size: 2em;
@@ -73,18 +66,24 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
-/* Style de la liste d'ingrédients */
+/* Ingredient list */
 .ingredient-list {
     list-style-type: none;
     padding: 0;
+    margin: 0 auto; /* Center the list */
+    max-width: 600px; /* Limit width to improve readability */
 }
 
 .ingredient-list li {
     margin-bottom: 10px;
     font-size: 1.2em;
+    background-color: #f8f9fa; /* Light background color for better contrast */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
 }
 
-/* Style du pied de page */
+/* Footer */
 footer {
     background-color: #343a40;
     color: #fff;
