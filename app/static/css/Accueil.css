@@ -111,6 +111,10 @@ nav ul li a:hover {
     transition: transform 0.3s;
     overflow: hidden;
     text-align: center; /* Centrer le contenu */
+    height: 400px; /* Adjust the height as needed */
+    width: 250px; /* Set a fixed width for recipe cards */
+}
+
 }
 
 .recipe-card:hover {
@@ -118,7 +122,9 @@ nav ul li a:hover {
 }
 
 .recipe-card img {
-    width: 100%;
+    max-width: 100%; /* Ensure image doesn't exceed card width */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure proper rendering */
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }

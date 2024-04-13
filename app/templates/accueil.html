@@ -6,6 +6,24 @@
     <title>Recettes de chez Nous - Accueil</title>
     <link rel="stylesheet" href="../static/css/accueil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script>
+        function filterRecipes() {
+            var query = document.getElementById('searchQuery').value.toLowerCase(); // Convert input to lowercase
+            var recipes = document.getElementsByClassName('recipe-card'); // Get all recipe cards
+
+            // Loop through each recipe card
+            for (var i = 0; i < recipes.length; i++) {
+                var recipeName = recipes[i].querySelector('h3').textContent.toLowerCase(); // Get recipe name
+
+                // Check if the recipe name contains the query
+                if (recipeName.includes(query)) {
+                    recipes[i].style.display = 'block'; // Show the recipe card
+                } else {
+                    recipes[i].style.display = 'none'; // Hide the recipe card
+                }
+            }
+        }
+    </script>
 </head>
 <body>
     <!-- Barre de navigation -->
@@ -31,10 +49,7 @@
     <div class="container">
         <!-- Barre de recherche -->
         <div class="search-bar">
-            <form action="{{ url_for('search') }}" method="POST">
-                <input type="text" name="search_query" placeholder="Search for ingredients or recipes...">
-                <button type="submit"><i class="fas fa-search"></i></button>
-            </form>
+            <input type="text" id="searchQuery" placeholder="Search for recipes..." oninput="filterRecipes()">
         </div>
         <!-- Section de présentation des recettes -->
         <section class="recipes">

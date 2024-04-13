@@ -24,11 +24,22 @@ def create_app():
     @app.route('/accueil')
     def accueil():
         cursor = db.connection.cursor(pymysql.cursors.DictCursor)
-        cursor.execute(
-            "SELECT r.nom, r.photo, d.type AS difficulte, r.id "
-            "FROM Recettes r "
-            "JOIN Difficulte_recettes d ON r.difficultee_recette = d.id"
-        )
+        search_query = request.args.get('ingredient')
+        if search_query:
+            cursor.execute(
+                "SELECT r.nom, r.photo, d.type AS difficulte, r.id "
+                "FROM Recettes r "
+                "JOIN Difficulte_recettes d ON r.difficultee_recette = d.id "
+                "JOIN Recette_ingredients ri ON r.id = ri.id_recette "
+                "JOIN Ingredients i ON ri.id_ingredient = i.id "
+                "WHERE i.nom = %s", (search_query,)
+            )
+        else:
+            cursor.execute(
+                "SELECT r.nom, r.photo, d.type AS difficulte, r.id "
+                "FROM Recettes r "
+                "JOIN Difficulte_recettes d ON r.difficultee_recette = d.id"
+            )
         recettes = cursor.fetchall()
         cursor.close()
         return render_template('accueil.html', recettes=recettes)

@@ -1,18 +1,47 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Ingrédients</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='ingredients.css') }}">
+    <title>Recettes de chez Nous - Ingrédients</title>
+    <link rel="stylesheet" href="../static/css/ingredients.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <h1>Liste des Ingrédients</h1>
-    <ul>
-        {% for ingredient in ingredients %}
-            <li><a href="#">{{ ingredient }}</a></li>
-        {% endfor %}
-    </ul>
+    <!-- Barre de navigation -->
+    <nav>
+        <div class="container">
+            <h1 id="titre">Recettes de chez Nous</h1>
+            <ul>
+                <li><a href="{{ url_for('accueil') }}">Accueil</a></li>
+                <!-- Modified part: Link to the ingredient list page -->
+                <li><a href="#">Ingrédients</a></li>
+                <li><a href="#">Catégories</a></li>
+                {% if 'user_id' in session %}
+                <li><a href="{{ url_for('account') }}">Compte ({{ session['pseudo'] }})</a></li>
+                <li><a href="{{ url_for('logout') }}">Déconnexion</a></li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}">Connexion</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <div class="container">
+        <h2 id="ingredients-title">Liste des Ingrédients</h2>
+        <ul class="ingredient-list">
+            {% for ingredient in ingredients %}
+                <li><a href="{{ url_for('accueil', ingredient=ingredient.nom) }}">{{ ingredient.nom }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Pied de page -->
+    <footer>
+        <div class="container">
+            <p>Nos noms</p>
+        </div>
+    </footer>
 </body>
 </html>
-

@@ -86,6 +86,7 @@ DROP TABLE IF EXISTS Cuisinier_recettes;
 DROP TABLE IF EXISTS Ingredients ;
 DROP TABLE IF EXISTS Utilisateurs  ;
 
+
 INSERT INTO Ingredients (nom) VALUES
 ('Sel'),
 ('Poivre'),
