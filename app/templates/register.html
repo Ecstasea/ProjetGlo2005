@@ -4,26 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href="../static/css/register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <h2>Register</h2>
     <form method="POST" action="{{ url_for('register') }}">
-        <label for="nom">Nom:</label><br>
-        <input type="text" id="nom" name="nom" required><br>
-        <label for="prenom">Prénom:</label><br>
-        <input type="text" id="prenom" name="prenom" required><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br>
-        <label for="age">Age:</label><br>
-        <input type="number" id="age" name="age" required><br>
-        <label for="pseudo">Pseudo:</label><br>
-        <input type="text" id="pseudo" name="pseudo" required><br>
-        <label for="mot_de_passe">Mot de passe:</label><br>
-        <input type="password" id="mot_de_passe" name="mot_de_passe" required><br>
-        <label for="photo_de_profil">Photo de profil:</label><br>
-        <input type="text" id="photo_de_profil" name="photo_de_profil"><br>
-        <label for="bool_cuisinier">Cuisinier:</label><br>
-        <input type="checkbox" id="bool_cuisinier" name="bool_cuisinier" value="1"><br><br>
+        <div class="form-group">
+            <label for="nom">Nom:</label><br>
+            <input type="text" id="nom" name="nom" required><br>
+        </div>
+        <div class="form-group">
+            <label for="prenom">Prénom:</label><br>
+            <input type="text" id="prenom" name="prenom" required><br>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+        </div>
+        <div class="form-group">
+            <label for="age">Age:</label><br>
+            <input type="number" id="age" name="age" required><br>
+        </div>
+        <div class="form-group">
+            <label for="pseudo">Pseudo:</label><br>
+            <input type="text" id="pseudo" name="pseudo" required><br>
+        </div>
+        <div class="form-group">
+            <label for="mot_de_passe">Mot de passe:</label><br>
+            <input type="password" id="mot_de_passe" name="mot_de_passe" required><br>
+        </div>
+        <div class="form-group">
+            <label for="bool_cuisinier">Cuisinier:</label><br>
+            <input type="checkbox" id="bool_cuisinier" name="bool_cuisinier" value="1"><br><br>
+        </div>
         <button type="submit">Register</button>
     </form>
 </body>

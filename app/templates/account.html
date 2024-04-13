@@ -3,10 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Settings</title>
+    <title>Compte</title>
+    <link rel="stylesheet" href="../static/css/account.css">
 </head>
 <body>
-    <h2>Account Settings</h2>
-    <!-- Ajoutez ici le formulaire pour modifier les paramètres du compte -->
+    <div class="container">
+        <h2>Compte</h2>
+        <form method="POST" action="{{ url_for('update_account') }}">
+            <div class="form-group">
+                <label for="nom">Nom:</label><br>
+                <input type="text" id="nom" name="nom" value="{{ user.nom }}" required><br>
+            </div>
+            <div class="form-group">
+                <label for="prenom">Prénom:</label><br>
+                <input type="text" id="prenom" name="prenom" value="{{ user.prenom }}" required><br>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" value="{{ user.email }}" required><br>
+            </div>
+            <!-- Ajoutez d'autres champs ici -->
+            <button type="submit">Enregistrer les modifications</button>
+        </form>
+    </div>
 </body>
 </html>

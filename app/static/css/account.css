@@ -5,6 +5,16 @@ body {
     color: #333;
 }
 
+/* Style du conteneur */
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* Style du titre */
 h2 {
     text-align: center;
@@ -16,16 +26,6 @@ h2 {
     font-family: 'Arial Black', sans-serif; /* Police de caractères */
 }
 
-/* Style du formulaire */
-form {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 /* Style des étiquettes */
 label {
     display: block;
@@ -35,10 +35,7 @@ label {
 
 /* Style des champs de saisie */
 input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-input[type="checkbox"] {
+input[type="email"] {
     width: calc(100% - 20px);
     padding: 10px;
     border-radius: 5px;
@@ -61,17 +58,4 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
     background-color: #0056b3;
-}
-
-.error {
-    color: red;
-    margin-top: 10px;
-}
-.container {
-    text-align: center;
-}
-
-.form-container {
-    display: inline-block;
-    text-align: left;
 }

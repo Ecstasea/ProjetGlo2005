@@ -62,16 +62,3 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #0056b3;
 }
-
-.error {
-    color: red;
-    margin-top: 10px;
-}
-.container {
-    text-align: center;
-}
-
-.form-container {
-    display: inline-block;
-    text-align: left;
-}

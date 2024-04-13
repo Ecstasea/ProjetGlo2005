@@ -15,8 +15,10 @@ def create_app():
 
     # db.insert_fake_users()
 
+
     @app.route('/')
     def home():
+        session.pop('user_id', None)  # Efface automatiquement 'user_id' de la session
         return redirect(url_for('accueil'))
 
     @app.route('/accueil')
@@ -69,7 +71,8 @@ def create_app():
         cursor.execute(
             "SELECT r.nom, r.temps_preparation, r.portion, r.photo, r.etapes, dr.type as difficulte, tr.type as type, cat.type as categorie "
             "FROM Recettes r, Difficulte_recettes dr, Categorie_recettes cat, Type_recettes tr "
-            "WHERE r.id = %s AND r.type_recette = tr.id AND r.categorie_recette = cat.id AND r.difficultee_recette = dr.id", (id,)
+            "WHERE r.id = %s AND r.type_recette = tr.id AND r.categorie_recette = cat.id AND r.difficultee_recette = dr.id",
+            (id,)
         )
         recette = cursor.fetchone()
         cursor.close()
@@ -84,7 +87,7 @@ def create_app():
         cuisinier = cursor.fetchone()
         cursor.close()
 
-        return render_template('recette.html', ingredients= ingredients, recette=recette, cuisinier=cuisinier)
+        return render_template('recette.html', ingredients=ingredients, recette=recette, cuisinier=cuisinier)
 
     # Modifiez votre fonction login()
     @app.route('/login', methods=['GET', 'POST'])
@@ -93,7 +96,6 @@ def create_app():
             email = request.form['email']
             password = request.form['password']
 
-            # Utilisez la connexion à la base de données pour créer le curseur
             cursor = db.connection.cursor(pymysql.cursors.DictCursor)
             cursor.execute('SELECT * FROM utilisateurs WHERE email = %s AND mot_de_passe = %s', (email, password))
             user = cursor.fetchone()
@@ -101,7 +103,8 @@ def create_app():
 
             if user:
                 session['user_id'] = user['id']
-                return redirect(url_for('dashboard'))
+                session['pseudo'] = user['pseudo']
+                return redirect(url_for('accueil'))
             else:
                 error = 'Identifiants invalides. Veuillez réessayer.'
                 return render_template('login.html', error=error)
@@ -118,39 +121,51 @@ def create_app():
             age = request.form['age']
             pseudo = request.form['pseudo']
             mot_de_passe = request.form['mot_de_passe']
-            photo_de_profil = ''
             bool_cuisinier = request.form.get('bool_cuisinier', False)
 
             # Utilisez la connexion à la base de données pour créer le curseur
             cursor = db.connection.cursor()
             cursor.execute(
-                'INSERT INTO Utilisateurs (nom, prenom, email, age, pseudo, mot_de_passe, photo_de_profil, bool_cuisinier) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
-                (nom, prenom, email, age, pseudo, mot_de_passe, photo_de_profil, bool_cuisinier))
+                'INSERT INTO Utilisateurs (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier) VALUES (%s, %s, %s, %s, %s, %s, %s)',
+                (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier))
             cursor.close()
 
             return redirect(url_for('login'))
         else:
             return render_template('register.html')
 
-
-    @app.route('/dashboard')
-    def dashboard():
+    @app.route('/account')
+    def account():
         if 'user_id' in session:
             user_id = session['user_id']
             cursor = db.connection.cursor(pymysql.cursors.DictCursor)
-            cursor.execute('SELECT * FROM Utilisateurs WHERE id = %s', (user_id,))
+            cursor.execute('SELECT * FROM utilisateurs WHERE id = %s', (user_id,))
             user = cursor.fetchone()
             cursor.close()
-            if user:
-                return render_template('dashboard.html', user=user)
-            else:
-                return redirect(url_for('login'))
+            return render_template('account.html', user=user)
         else:
             return redirect(url_for('login'))
 
-    @app.route('/account')
-    def account():
-        return render_template('account.html')
+    @app.route('/update_account', methods=['POST'])
+    def update_account():
+        if 'user_id' in session:
+            user_id = session['user_id']
+
+            nom = request.form['nom']
+            prenom = request.form['prenom']
+            email = request.form['email']
+
+
+
+            cursor = db.connection.cursor()
+            cursor.execute('UPDATE utilisateurs SET nom = %s, prenom = %s, email = %s WHERE id = %s',
+                           (nom, prenom, email, user_id))
+
+            db.connection.commit()
+            cursor.close()
+            return redirect(url_for('account'))
+        else:
+            return redirect(url_for('login'))
 
     @app.route('/recipes')
     def recipes():
@@ -171,10 +186,11 @@ def create_app():
         ingredients = cursor.fetchall()
         cursor.close()
         return render_template('ingredients.html', ingredients=ingredients)
+        
 
     @app.route('/logout')
     def logout():
         session.pop('user_id', None)
-        return redirect(url_for('login'))
+        return redirect(url_for('accueil'))
 
     return app

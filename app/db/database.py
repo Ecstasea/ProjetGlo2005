@@ -9,7 +9,8 @@ class Database:
             user=app.config['MYSQL_DATABASE_USER'],
             password=app.config['MYSQL_DATABASE_PASSWORD'],
             db=app.config['MYSQL_DATABASE_DB'],
-            cursorclass=pymysql.cursors.DictCursor
+            cursorclass=pymysql.cursors.DictCursor,
+
         )
         self.cursor = self.connection.cursor()
 

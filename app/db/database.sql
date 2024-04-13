@@ -1,6 +1,7 @@
 CREATE DATABASE ProjetGlo2005;
 USE ProjetGlo2005;
 
+
 CREATE TABLE Utilisateurs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(50),
@@ -476,4 +477,5 @@ VALUES
 
 Select * FROM recettes;
 
+delete from utilisateurs where id = 23;
 UPDATE Recettes SET photo = '../static/photos/food.png';

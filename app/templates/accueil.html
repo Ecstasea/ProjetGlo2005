@@ -17,7 +17,12 @@
                 <!-- Modified part: Link to the ingredient list page -->
                 <li><a href="{{ url_for('show_ingredients') }}">Ingrédients</a></li>
                 <li><a href="#">Catégories</a></li>
+                {% if 'user_id' in session %}
+                <li><a href="{{ url_for('account') }}">Compte ({{ session['pseudo'] }})</a></li>
+                <li><a href="{{ url_for('logout') }}">Déconnexion</a></li>
+                {% else %}
                 <li><a href="{{ url_for('login') }}">Connexion</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>
@@ -43,7 +48,7 @@
                 </div>
             </div>
             {% endfor %}
-        </section>       
+        </section>
 
     </div>
 
