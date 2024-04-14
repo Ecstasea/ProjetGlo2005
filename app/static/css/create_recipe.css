@@ -3,6 +3,8 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     color: #333;
+    margin: 0;
+    padding: 0;
 }
 
 /* Style du titre */
@@ -17,7 +19,7 @@ h2 {
 }
 
 /* Style du formulaire */
-.account-form {
+form {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
@@ -27,27 +29,26 @@ h2 {
 }
 
 /* Style des étiquettes */
-.account-form label {
+label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
 /* Style des champs de saisie */
-.account-form input[type="text"],
-.account-form input[type="email"],
-.account-form input[type="password"],
-.account-form input[type="number"],
-.account-form input[type="checkbox"] {
-    width: calc(100% - 20px);
+input[type="text"],
+select,
+textarea {
+    width: 100%;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     margin-bottom: 15px;
+    box-sizing: border-box; /* Pour inclure le padding et la bordure dans la largeur */
 }
 
 /* Style du bouton */
-.account-form button[type="submit"] {
+button[type="submit"] {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
@@ -59,7 +60,7 @@ h2 {
     width: 100%;
 }
 
-.account-form button[type="submit"]:hover {
+button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
@@ -71,29 +72,4 @@ h2 {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-}
-
-/* Style des informations du cuisinier */
-.chef-info {
-    width: 45%; /* Ajustez selon vos besoins */
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-}
-
-.chef-info h3 {
-    margin-bottom: 15px;
-}
-
-.chef-info p {
-    margin-bottom: 10px;
-}
-
-/* Réduire la taille de la photo de profil */
-.chef-info img {
-    max-width: 100%; /* Pour s'assurer que l'image ne dépasse pas la largeur de son conteneur */
-    height: auto; /* Pour conserver les proportions de l'image */
-    border-radius: 5px;
-    /* Ajoutez ces styles pour ajuster la taille de l'image */
-    max-height: 200px; /* Définissez la hauteur maximale souhaitée */
 }

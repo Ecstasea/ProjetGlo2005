@@ -156,7 +156,6 @@ def create_app():
         else:
             return render_template('register.html')
 
-
     @app.route('/account')
     def account():
         if 'user_id' in session:
@@ -165,7 +164,19 @@ def create_app():
             cursor.execute('SELECT * FROM utilisateurs WHERE id = %s', (user_id,))
             user = cursor.fetchone()
             cursor.close()
-            return render_template('account.html', user=user)
+
+            if user:
+                # Vérifier si l'utilisateur est un cuisinier
+                if user['bool_cuisinier']:
+                    cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+                    cursor.execute('SELECT * FROM Cuisiniers WHERE id = %s', (user_id,))
+                    cuisinier = cursor.fetchone()
+                    cursor.close()
+                    return render_template('account.html', user=user, cuisinier=cuisinier)
+                else:
+                    return render_template('account.html', user=user)
+            else:
+                return redirect(url_for('login'))
         else:
             return redirect(url_for('login'))
 
@@ -200,10 +211,50 @@ def create_app():
         # Code pour afficher la liste des recettes
         return render_template('recipes.html')
 
-    @app.route('/create_recipe')
+    @app.route('/create_recipe', methods=['GET', 'POST'])
     def create_recipe():
-        # Code pour afficher le formulaire de création de recette
-        return render_template('create_recipe.html')
+        if request.method == 'POST':
+            #nom = request.form['nom']
+            #type_recette = request.form['type_recette']
+            #categorie_recette = request.form['categorie_recette']
+            #portion = request.form['portion']
+            #difficulte_recette = request.form['difficulte_recette']
+            #ingredients = request.form.getlist('ingredients')
+            #photo = request.files['photo']
+            #etapes = request.form['etapes']
+
+            # Traiter la photo (sauvegarde, etc.)
+            #photo.save('../static/photos/food.png' + photo.filename)
+            cursor = db.connection.cursor()
+
+            cursor.execute("""
+                    INSERT INTO Cuisinier_recettes(id_cuisinier, id_recette)
+                VALUES (27, 24)
+                                        """)
+            db.connection.commit()
+            cursor.close()
+
+            cursor = db.connection.cursor()
+
+            cursor.execute("""
+                                INSERT INTO Recette_ingredients (id_recette, id_ingredient, quantite)
+                                VALUES (24, 9, 150.0)
+                            """)
+            db.connection.commit()
+            cursor.close()
+
+            cursor = db.connection.cursor()
+
+            cursor.execute("""
+                    INSERT INTO Recettes (nom, temps_preparation, type_recette, categorie_recette, portion, difficultee_recette, photo, etapes)
+                    VALUES ('sa', '15', 1, 1, '4', 1,'../static/photos/food.png', '')
+                """)
+            db.connection.commit()
+            cursor.close()
+
+            return redirect(url_for('accueil'))  # Rediriger vers la page d'accueil après la création de la recette
+        else:
+            return render_template('create_recipe.html')
 
     @app.route('/ingredients')
     def show_ingredients():

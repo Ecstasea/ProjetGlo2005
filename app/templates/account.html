@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compte</title>
-    <link rel="stylesheet" href="../static/css/register.css">
+    <link rel="stylesheet" href="../static/css/account.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <h2>Compte</h2>
-    <form method="POST" action="{{ url_for('update_account') }}">
+    <div class="account-container">
+    <form class="account-form" method="POST" action="{{ url_for('update_account') }}">
         <div class="form-group">
             <label for="nom">Nom:</label><br>
             <input type="text" id="nom" name="nom" value="{{ user.nom }}" required><br>
@@ -38,6 +39,16 @@
             <label for="bool_cuisinier">Cuisinier:</label><br>
             <input type="checkbox" id="bool_cuisinier" name="bool_cuisinier" value="1" {% if user.bool_cuisinier %}checked{% endif %}><br><br>
         </div>
+        {% if user.bool_cuisinier %}
+        <div class="chef-info">
+            <h3>Informations de cuisinier</h3>
+            <p>Nombre de recettes: {{ cuisinier.nombre_recette }}</p>
+            <p>Année d'expérience: {{ cuisinier.annee_experience }}</p>
+            <p>Bio: {{ cuisinier.bio }}</p>
+            <p>Spécialité: {{ cuisinier.specialite }}</p>
+            <img src="{{ cuisinier.photo_profil }}" alt="Photo de profil">
+        </div>
+        {% endif %}
         <button type="submit">Enregistrer les modifications</button>
         <a href="{{ url_for('accueil') }}">Retour à l'accueil</a>
     </form>
