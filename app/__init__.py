@@ -92,7 +92,7 @@ def create_app():
         # Recuperation du cuisinier
         cursor = db.connection.cursor(pymysql.cursors.DictCursor)
         cursor.execute(
-            "SELECT u.pseudo, c.photo_profil "
+            "SELECT u.pseudo, c.photo_profil, c.id "
             "FROM Cuisinier_recettes cr, Cuisiniers c, Utilisateurs u "
             "WHERE cr.id_recette = %s AND cr.id_cuisinier = c.id AND c.id = u.id", (id,)
         )
@@ -214,6 +214,29 @@ def create_app():
         ingredients = cursor.fetchall()
         cursor.close()
         return render_template('ingredients.html', ingredients=ingredients)
+
+    @app.route('/profil_cuisinier/<int:id>')
+    def profil_cuisinier(id):
+        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("""
+            SELECT c.id, c.nombre_recette, c.bio, c.photo_profil, c.annee_experience, cr.type AS categorie, u.pseudo
+            FROM Cuisiniers c
+            JOIN categorie_recettes cr ON c.specialite = cr.id
+            JOIN utilisateurs u ON c.id = u.id
+            WHERE c.id = %s """, (id,)
+        )
+        cuisinier = cursor.fetchone()
+        cursor.close()
+        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("""
+            SELECT r.*
+            FROM Recettes r
+            JOIN Cuisinier_recettes cr ON r.id = cr.id_recette
+            WHERE cr.id_cuisinier = %s """, (id,)
+        )
+        recettes = cursor.fetchall()
+        cursor.close()
+        return render_template('profil_cuisinier.html', cuisinier=cuisinier, recettes = recettes)
 
     @app.route('/logout')
     def logout():

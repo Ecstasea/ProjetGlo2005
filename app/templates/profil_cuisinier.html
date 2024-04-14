@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Cuisinier</title>
+    <!-- Ajoutez vos liens vers les fichiers CSS ici -->
+    <link rel="stylesheet" href="../static/css/profil_cuisinier.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="container">
+            <div class="profil-header">
+                <img src="{{ cuisinier.photo_profil }}" alt="Photo de profil de {{ cuisinier.pseudo }}">
+                <h1>{{ cuisinier.pseudo }}</h1>
+            </div>
+            <div class="profil-details">
+                <h2>Année(s) d'expérience :</h2>
+                <p>{{ cuisinier.annee_experience }}</p>
+                <h2>Spécialité :</h2>
+                <p>{{ cuisinier.categorie }}</p>
+                <h2>Biographie :</h2>
+                <p>{{ cuisinier.bio }}</p>
+                <h2>Nombre de recettes :</h2>
+                <p>{{ cuisinier.nombre_recette }}</p>
+            </div>
+        </div>
+    </div>
+        <!-- Section de présentation des recettes -->
+    <div class="page-container">
+        <h2>Liste des recettes :</h2>
+        <section class="recipes">
+            {% for recette in recettes %}
+            <div class="recipe-card">
+                <img src="{{ recette.photo }}" alt="Photo de {{ recette.nom }}">
+                <h3>{{ recette.nom }}</h3>
+                <div class="difficulty">
+                    <a href="{{ url_for('recette', id=recette.id) }}" class="recipe-button">Voir la recette</a>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+    <a href="{{ url_for('accueil') }}" class="home-button">Retour à l'accueil</a>
+</body>
+</html>

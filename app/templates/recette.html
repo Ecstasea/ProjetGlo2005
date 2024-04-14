@@ -35,7 +35,7 @@
             <h2>Cuisinier :</h2>
             <img src="{{ cuisinier.photo_profil }}" alt="Photo de profil de {{ cuisinier.pseudo }}">
             <p>{{ cuisinier.pseudo }}</p>
-            <a href="#" class="button">Voir le profil</a>
+            <a href="{{ url_for('profil_cuisinier', id=cuisinier.id) }}" class="button">Voir le profil</a>
         </div>
     </div>
     <a href="{{ url_for('accueil') }}" class="home-button">Retour à l'accueil</a>
