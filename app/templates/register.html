@@ -38,6 +38,9 @@
             <label for="bool_cuisinier">Cuisinier:</label><br>
             <input type="checkbox" id="bool_cuisinier" name="bool_cuisinier" value="1"><br><br>
         </div>
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
         <button type="submit">Register</button>
     </form>
 </body>

@@ -62,3 +62,12 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+.error-message {
+    color: #d9534f; /* Rouge */
+    background-color: #f2dede; /* Rouge plus clair */
+    border: 1px solid #d9534f; /* Bordure rouge */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}

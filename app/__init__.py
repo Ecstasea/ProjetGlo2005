@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-
+from flask_wtf.csrf import CSRFProtect
 import pymysql
-
+from werkzeug.security import generate_password_hash
 import os
 from .db.database import Database
+from pymysql import IntegrityError
 
 
 def create_app():
@@ -101,6 +102,8 @@ def create_app():
         return render_template('recette.html', ingredients=ingredients, recette=recette, cuisinier=cuisinier)
 
     # Modifiez votre fonction login()
+    from werkzeug.security import check_password_hash
+
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'POST':
@@ -108,11 +111,11 @@ def create_app():
             password = request.form['password']
 
             cursor = db.connection.cursor(pymysql.cursors.DictCursor)
-            cursor.execute('SELECT * FROM utilisateurs WHERE email = %s AND mot_de_passe = %s', (email, password))
+            cursor.execute('SELECT * FROM utilisateurs WHERE email = %s', (email,))
             user = cursor.fetchone()
             cursor.close()
 
-            if user:
+            if user and check_password_hash(user['mot_de_passe'], password):
                 session['user_id'] = user['id']
                 session['pseudo'] = user['pseudo']
                 return redirect(url_for('accueil'))
@@ -122,7 +125,10 @@ def create_app():
         else:
             return render_template('login.html')
 
+
     # Modifiez votre fonction register()
+
+
     @app.route('/register', methods=['GET', 'POST'])
     def register():
         if request.method == 'POST':
@@ -131,21 +137,25 @@ def create_app():
             email = request.form['email']
             age = request.form['age']
             pseudo = request.form['pseudo']
-            mot_de_passe = request.form['mot_de_passe']
+            # Chiffrer le mot de passe avant de l'ajouter à la base de données
+            mot_de_passe = generate_password_hash(request.form['mot_de_passe'])
             bool_cuisinier = request.form.get('bool_cuisinier', False)
 
-            # Utilisez la connexion à la base de données pour créer le curseur
-            cursor = db.connection.cursor()
-            cursor.execute(
-                'INSERT INTO Utilisateurs (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier) VALUES (%s, '
-                '%s, %s, %s, %s, %s, %s)',
-                (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier))
-            db.connection.commit()
-            cursor.close()
-
-            return redirect(url_for('login'))
+            try:
+                # Utiliser la connexion à la base de données pour créer le curseur
+                cursor = db.connection.cursor()
+                cursor.execute(
+                    'INSERT INTO Utilisateurs (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier) VALUES (%s, %s, %s, %s, %s, %s, %s)',
+                    (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier))
+                db.connection.commit()
+                cursor.close()
+                return redirect(url_for('login'))
+            except IntegrityError as e:
+                error = "L'utilisateur avec cet email ou pseudo existe déjà."
+                return render_template('register.html', error=error)
         else:
             return render_template('register.html')
+
 
     @app.route('/account')
     def account():
@@ -170,7 +180,7 @@ def create_app():
             email = request.form['email']
             age = request.form['age']
             pseudo = request.form['pseudo']
-            mot_de_passe = request.form['mot_de_passe']
+            mot_de_passe = generate_password_hash(request.form['mot_de_passe'])
             bool_cuisinier = request.form.get('bool_cuisinier', False)
 
             cursor = db.connection.cursor()
