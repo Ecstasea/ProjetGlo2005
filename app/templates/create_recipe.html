@@ -6,6 +6,9 @@
     <title>Créer une recette</title>
     <link rel="stylesheet" href="../static/css/create_recipe.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../static/js/create_recipe.js"></script>
+
 </head>
 <body>
     <h2>Créer une recette</h2>
@@ -25,45 +28,20 @@
             <option value="120">2 heures</option>
         </select><br>
 
-        <!-- Champs pour le type de recette -->
+        <!-- Champs pour le type de recette, maintenant chargé dynamiquement -->
         <label for="type_recette">Type de recette:</label><br>
         <select id="type_recette" name="type_recette" required>
-            <option value="1">Entrée</option>
-            <option value="2">Plat principal</option>
-            <option value="3">Dessert</option>
-            <option value="4">Goûter</option>
-            <option value="5">Boisson</option>
-            <option value="6">Apéritif</option>
-            <option value="7">Salade</option>
-            <option value="8">Soupes</option>
-            <option value="9">Végétarien</option>
-            <option value="10">Végétalien</option>
-            <option value="11">Sans gluten</option>
+            {% for type in types %}
+            <option value="{{ type.id }}">{{ type.type }}</option>
+            {% endfor %}
         </select><br>
 
-        <!-- Champs pour la catégorie de recette -->
+        <!-- Champs pour la catégorie de recette, chargé dynamiquement -->
         <label for="categorie_recette">Catégorie de recette:</label><br>
         <select id="categorie_recette" name="categorie_recette" required>
-            <option value="1">Mexicain</option>
-            <option value="2">Américain</option>
-            <option value="3">Japonais</option>
-            <option value="4">Italien</option>
-            <option value="5">Français</option>
-            <option value="6">Chinois</option>
-            <option value="7">Indien</option>
-            <option value="8">Thaïlandais</option>
-            <option value="9">Méditerranéen</option>
-            <option value="10">Grec</option>
-            <option value="11">Vietnamien</option>
-            <option value="12">Espagnol</option>
-            <option value="13">Brésilien</option>
-            <option value="14">Marocain</option>
-            <option value="15">Libanais</option>
-            <option value="16">Allemand</option>
-            <option value="17">Africain</option>
-            <option value="18">Portugais</option>
-            <option value="19">Russe</option>
-            <option value="20">Coréen</option>
+            {% for categorie in categories %}
+            <option value="{{ categorie.id }}">{{ categorie.type }}</option>
+            {% endfor %}
         </select><br>
 
         <!-- Champs pour la portion -->
@@ -75,21 +53,25 @@
             <option value="8">8 portions</option>
         </select><br>
 
-        <!-- Champs pour la difficulté de la recette -->
+        <!-- Champs pour la difficulté de la recette, chargé dynamiquement -->
         <label for="difficulte_recette">Difficulté de la recette:</label><br>
         <select id="difficulte_recette" name="difficulte_recette" required>
-            <option value="1">Très facile</option>
-            <option value="2">Facile</option>
-            <option value="3">Moyen</option>
-            <option value="4">Difficile</option>
-            <option value="5">Très difficile</option>
+            {% for difficulte in difficultes %}
+            <option value="{{ difficulte.id }}">{{ difficulte.type }}</option>
+            {% endfor %}
         </select><br>
 
-        <!-- Champs pour les ingrédients -->
-        <label for="ingredients">Ingrédients:</label><br>
-        <input type="checkbox" id="ingredients" name="ingredients" value="1"> Sel<br>
-        <input type="checkbox" id="ingredients" name="ingredients" value="2"> Poivre<br>
-        <!-- Ajoutez d'autres ingrédients ici -->
+        <!-- Champs pour les ingrédients, chargés dynamiquement -->
+        <label for="ingredients_search">Rechercher un ingrédient:</label><br>
+        <input type="text" id="ingredients_search" onkeyup="filterIngredients()" placeholder="Recherche d'ingrédients"><br>
+        <div id="ingredient_list">
+            {% for ingredient in ingredients %}
+            <div class="ingredient">
+                <input type="checkbox" id="ingredient{{ ingredient.id }}" name="ingredients" value="{{ ingredient.id }}">
+                <label for="ingredient{{ ingredient.id }}">{{ ingredient.nom }}</label><br>
+            </div>
+            {% endfor %}
+        </div>
 
         <!-- Champs pour la photo de la recette -->
         <label for="photo">Photo de la recette:</label><br>
@@ -101,5 +83,11 @@
 
         <button type="submit">Créer la recette</button>
     </form>
+
+    <script>
+        
+
+    </script>
+
 </body>
 </html>

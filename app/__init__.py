@@ -254,7 +254,29 @@ def create_app():
 
             return redirect(url_for('accueil'))  # Rediriger vers la page d'accueil après la création de la recette
         else:
-            return render_template('create_recipe.html')
+            cursor = db.connection.cursor()
+            
+            # Récupérer tous les ingrédients
+            cursor.execute("SELECT * FROM ingredients")
+            ingredients = cursor.fetchall()
+            
+            # Récupérer toutes les difficultés
+            cursor.execute("SELECT * FROM difficulte_recettes")
+            difficultes = cursor.fetchall()
+
+            # Récupérer toutes les catégories de recettes
+            cursor.execute("SELECT * FROM categorie_recettes")
+            categories = cursor.fetchall()
+
+            # Récupérer tous les types de recettes
+            cursor.execute("SELECT * FROM type_recettes")
+            types = cursor.fetchall()
+            
+            cursor.close()
+
+            # Envoyer ces données au template pour les afficher dans les champs appropriés.
+            return render_template('create_recipe.html', ingredients=ingredients, difficultes=difficultes, categories=categories, types=types)
+
 
     @app.route('/ingredients')
     def show_ingredients():

@@ -32,6 +32,7 @@ form {
 label {
     display: block;
     margin-bottom: 5px;
+    margin-top: 10px;
     font-weight: bold;
 }
 
@@ -72,4 +73,21 @@ button[type="submit"]:hover {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
+}
+
+/* Style pour les conteneurs d'ingrédients */
+.ingredient {
+    display: flex;
+    align-items: center; /* Centre verticalement les éléments */
+    margin-bottom: 5px;
+}
+
+/* Style pour les cases à cocher */
+input[type="checkbox"] {
+    margin-right: 10px; /* Espace entre la case à cocher et le label */
+}
+
+/* Style pour les labels des ingrédients */
+.ingredient label {
+    margin: 0; /* Enlève les marges par défaut */
 }
