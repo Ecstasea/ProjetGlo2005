@@ -27,6 +27,7 @@ def create_app():
     def accueil():
         cursor = db.connection.cursor(pymysql.cursors.DictCursor)
         search_query = request.args.get('ingredient')
+        category_filter = request.args.get('category')
         user_id = session.get('user_id')
         cuisinier = False
         if user_id:
@@ -35,7 +36,15 @@ def create_app():
             if result and result['bool_cuisinier']:
                 cuisinier = True
 
-        if search_query:
+        if category_filter:
+            cursor.execute(
+                "SELECT r.nom, r.photo, d.type AS difficulte, r.id "
+                "FROM Recettes r "
+                "JOIN Difficulte_recettes d ON r.difficultee_recette = d.id "
+                "JOIN Categorie_recettes cr ON r.categorie_recette = cr.id "
+                "WHERE cr.type = %s", (category_filter,)
+            )
+        elif search_query:
             cursor.execute(
                 "SELECT r.nom, r.photo, d.type AS difficulte, r.id "
                 "FROM Recettes r "
