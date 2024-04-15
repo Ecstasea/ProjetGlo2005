@@ -27,6 +27,14 @@ def create_app():
     def accueil():
         cursor = db.connection.cursor(pymysql.cursors.DictCursor)
         search_query = request.args.get('ingredient')
+        user_id = session.get('user_id')
+        cuisinier = False
+        if user_id:
+            cursor.execute("SELECT bool_cuisinier FROM Utilisateurs WHERE id = %s", (user_id,))
+            result = cursor.fetchone()
+            if result and result['bool_cuisinier']:
+                cuisinier = True
+
         if search_query:
             cursor.execute(
                 "SELECT r.nom, r.photo, d.type AS difficulte, r.id "
