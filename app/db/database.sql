@@ -267,26 +267,26 @@ INSERT INTO Difficulte_recettes (id, type) VALUES
 Select * From Difficulte_recettes;
 
 INSERT INTO Utilisateurs (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier) VALUES
-('Dupont', 'Jean', 'jean.dupont@example.com', 30, 'jean.dupont', 'motdepasse1', TRUE),
-('Martin', 'Marie', 'marie.martin@example.com', 15, 'marie.martin', 'motdepasse2',  FALSE),
-('Dubois', 'Paul', 'paul.dubois@example.com', 28, 'paul.dubois', 'motdepasse3',  TRUE),
-('Bernard', 'Sophie', 'sophie.bernard@example.com', 22, 'sophie.bernard', 'motdepasse4', TRUE),
-('Lefevre', 'Pierre', 'pierre.lefevre@example.com', 35, 'pierre.lefevre', 'motdepasse5', FALSE),
-('Robert', 'Catherine', 'catherine.robert@example.com', 27, 'catherine.robert', 'motdepasse6', TRUE),
-('Petit', 'Thomas', 'thomas.petit@example.com', 29, 'thomas.petit', 'motdepasse7',  TRUE),
-('Durand', 'Isabelle', 'isabelle.durand@example.com', 11, 'isabelle.durand', 'motdepasse8', FALSE),
-('Leroy', 'Nicolas', 'nicolas.leroy@example.com', 26, 'nicolas.leroy', 'motdepasse9',  TRUE),
-('Moreau', 'Sandrine', 'sandrine.moreau@example.com', 24, 'sandrine.moreau', 'motdepasse10', TRUE),
-('Simon', 'David', 'david.simon@example.com', 33, 'david.simon', 'motdepasse11',  FALSE),
-('Lefebvre', 'Laura', 'laura.lefebvre@example.com', 23, 'laura.lefebvre', 'motdepasse12',  TRUE),
-('Michel', 'François', 'francois.michel@example.com', 32, 'francois.michel', 'motdepasse13',  TRUE),
-('Garcia', 'Caroline', 'caroline.garcia@example.com', 29, 'caroline.garcia', 'motdepasse14',  TRUE),
-('David', 'Éric', 'eric.david@example.com', 26, 'eric.david', 'motdepasse15',  FALSE),
-('Martinez', 'Émilie', 'emilie.martinez@example.com', 30, 'emilie.martinez', 'motdepasse16', TRUE),
-('Gauthier', 'Guillaume', 'guillaume.gauthier@example.com', 27, 'guillaume.gauthier', 'motdepasse17', TRUE),
-('Aimarre', 'Jean', 'jean.aimarre@example.com', 28, 'jean.aimare', 'motdepasse18',  TRUE),
-('Fournier', 'Mathieu', 'mathieu.fournier@example.com', 25, 'mathieu.fournier', 'motdepasse19',  FALSE),
-('Lopez', 'James', 'james.lopez@example.com', 34, 'james.lopez', 'motdepasse20',  TRUE);
+('Dupont', 'Jean', 'jean.dupont@example.com', 30, 'jean.dupont', 'pbkdf2:sha256:600000$9OmnRIKsUpAUS64Z$89225ee448a5ba5c4716d93125bb6e42683a4996e9fa65f21252c5fedca207e9', TRUE),
+('Martin', 'Marie', 'marie.martin@example.com', 15, 'marie.martin', 'pbkdf2:sha256:600000$XuRE8fIXVswZe3xB$37796235b1338c54f0eeff17294d7f9d181b09b1a0b1670655192e7085bf0802',  FALSE),
+('Dubois', 'Paul', 'paul.dubois@example.com', 28, 'paul.dubois', 'pbkdf2:sha256:600000$A9X9uuhDyWpad7bA$8e6685e545973c613296632994cbbfc18da10e755d4b533aa65b05d2939849fb',  TRUE),
+('Bernard', 'Sophie', 'sophie.bernard@example.com', 22, 'sophie.bernard', 'pbkdf2:sha256:600000$tZrQesjxkiBWObJv$2adb2e4f4b9a5940f98998864a1f20a56c3d4a4da66bd5a5c01ed135f76ec846', TRUE),
+('Lefevre', 'Pierre', 'pierre.lefevre@example.com', 35, 'pierre.lefevre', 'pbkdf2:sha256:600000$CCIdtyChmLP1NU9e$d63fe2062976264228303e9e4e750c0822e01fddaaba229ba0b1c875eecb90bd', FALSE),
+('Robert', 'Catherine', 'catherine.robert@example.com', 27, 'catherine.robert', 'pbkdf2:sha256:600000$amrWMsOLlhBY2env$ab0a5867d596eccd9bb1a62bb21c43311314e7b57bef31e4b762a48f374696f6', TRUE),
+('Petit', 'Thomas', 'thomas.petit@example.com', 29, 'thomas.petit', 'pbkdf2:sha256:600000$aPLgrtkaTiHVE56s$37747b67a2ebe80f075ee266ac01f6f4f1251f80ece0e35242d8a99b5c3362ab',  TRUE),
+('Durand', 'Isabelle', 'isabelle.durand@example.com', 11, 'isabelle.durand', 'pbkdf2:sha256:600000$IY58SZ1VTiYjkRLx$03705e0bda57c8bcae8c5cdfb50713ce3c1e31e2506e8d25472de58f095c85bc', FALSE),
+('Leroy', 'Nicolas', 'nicolas.leroy@example.com', 26, 'nicolas.leroy', 'pbkdf2:sha256:600000$zolkHfUyI9bGbN2L$9a6371346f918cd4ef16264e0b97981ecf448ccc99c15eadf4e92a4d3d8eb35d',  TRUE),
+('Moreau', 'Sandrine', 'sandrine.moreau@example.com', 24, 'sandrine.moreau', 'pbkdf2:sha256:600000$iudGMkUdwcwPfZDk$56f57db3ad94324f8d08f1aa9b56c87bafe99b4e10d100772c19575eb5f11de3', TRUE),
+('Simon', 'David', 'david.simon@example.com', 33, 'david.simon', 'pbkdf2:sha256:600000$fivkXBY2FvFGkuaS$a6a2711a63970f68aaf2fd9127109afef722640881dfbfe8f29fd134ef841585',  FALSE),
+('Lefebvre', 'Laura', 'laura.lefebvre@example.com', 23, 'laura.lefebvre', 'pbkdf2:sha256:600000$x8xdkaY1nPnUg2fj$7e9491deb8b7638b162ce707094070fd8581a1df012d2c7a060a45a44c0614fe',  TRUE),
+('Michel', 'François', 'francois.michel@example.com', 32, 'francois.michel', 'pbkdf2:sha256:600000$zMFQ65jRbOEK5Sej$67216257b33c587d27014b28a1333b80bcf91a7ce180f14b6cd5bbc5e77f1249',  TRUE),
+('Garcia', 'Caroline', 'caroline.garcia@example.com', 29, 'caroline.garcia', 'pbkdf2:sha256:600000$G3eF5DgbmJloRgWh$9317ab29643b8ea986b9520a61425d7f2fb7ff508b553fa6977b9fae656cb639',  TRUE),
+('David', 'Éric', 'eric.david@example.com', 26, 'eric.david', 'pbkdf2:sha256:600000$4AESOG6Z2aKgOR5z$6b3c67fa45d339f35483479cfa859fe58f89a27a903891ec2cf25220b407201e',  FALSE),
+('Martinez', 'Émilie', 'emilie.martinez@example.com', 30, 'emilie.martinez', 'pbkdf2:sha256:600000$cnqZzkHzquCLDaoQ$99c92f0f489b22c590368267e11fbe542d47919beb362bade9b5486dd49056ad', TRUE),
+('Gauthier', 'Guillaume', 'guillaume.gauthier@example.com', 27, 'guillaume.gauthier', 'pbkdf2:sha256:600000$BRsve2fd6ecUSiYi$d2cc0cb6c28d1a7e5fb322d325dd396834ea20d62a70f81bfb0b2576b910f72a', TRUE),
+('Aimarre', 'Jean', 'jean.aimarre@example.com', 28, 'jean.aimare', 'pbkdf2:sha256:600000$zsMaxl3UJT1aOczA$c67d3173db6fa3aba62f692c7251ad42f1ad751af3c2553f168fde040a77d864',  TRUE),
+('Fournier', 'Mathieu', 'mathieu.fournier@example.com', 25, 'mathieu.fournier', 'pbkdf2:sha256:600000$51lAIXyVefEDGyN0$d353fdb4115108fe5e13b0eedc7ee5f0253588309ea0809d0bef1a393f746fe9',  FALSE),
+('Lopez', 'James', 'james.lopez@example.com', 34, 'james.lopez', 'pbkdf2:sha256:600000$c3FMxUqqknbRsQzr$8df7ac8dc845c8f7fc4e0d0eca4b8ec0602cf46bc5a51d5a81d20dc954bae9cb',  TRUE);
 
 SELECT * FROM utilisateurs;
 

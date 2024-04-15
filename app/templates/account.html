@@ -37,7 +37,7 @@
             </div>
             <div class="form-group">
                 <label for="bool_cuisinier">Cuisinier:</label><br>
-                <input type="checkbox" id="bool_cuisinier" name="bool_cuisinier" value="1" {% if user.bool_cuisinier %}checked{% endif %} ><br><br>
+                <input type="checkbox" id="bool_cuisinier" name="bool_cuisinier" value="1" {% if user.bool_cuisinier %}checked{% endif %} disabled ><br><br>
 
             </div>
             {% if user.bool_cuisinier %}
