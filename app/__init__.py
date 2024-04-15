@@ -66,10 +66,17 @@ def create_app():
     @app.route('/categories')
     def categories():
         cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        user_id = session.get('user_id')
+        cuisinier = False
+        if user_id:
+            cursor.execute("SELECT bool_cuisinier FROM Utilisateurs WHERE id = %s", (user_id,))
+            result = cursor.fetchone()
+            if result and result['bool_cuisinier']:
+                cuisinier = True
         cursor.execute("SELECT * FROM Categorie_recettes")
         categories = cursor.fetchall()
         cursor.close()
-        return render_template('categories.html', categories=categories)
+        return render_template('categories.html', categories=categories, cuisinier=cuisinier)
 
     @app.route('/search', methods=['POST'])
     def search():
@@ -342,12 +349,19 @@ def create_app():
     @app.route('/ingredients')
     def show_ingredients():
         cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        user_id = session.get('user_id')
+        cuisinier = False
+        if user_id:
+            cursor.execute("SELECT bool_cuisinier FROM Utilisateurs WHERE id = %s", (user_id,))
+            result = cursor.fetchone()
+            if result and result['bool_cuisinier']:
+                cuisinier = True
         cursor.execute(
             "SELECT nom "
             "FROM Ingredients ")
         ingredients = cursor.fetchall()
         cursor.close()
-        return render_template('ingredients.html', ingredients=ingredients)
+        return render_template('ingredients.html', ingredients=ingredients, cuisinier=cuisinier)
 
     @app.route('/profil_cuisinier/<int:id>')
     def profil_cuisinier(id):
