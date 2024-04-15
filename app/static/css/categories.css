@@ -1,0 +1,93 @@
+/* Categories.css */
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Navigation */
+nav {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+}
+
+nav h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2em;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #f8f9fa;
+}
+
+/* Main section */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Title */
+#titre {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Arial Black', sans-serif;
+}
+
+/* Categories title */
+#categories-title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-decoration: underline;
+    color: black; /* Change title color to black */
+}
+
+/* Category list */
+.category-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto; /* Center the list */
+    max-width: 600px; /* Limit width to improve readability */
+}
+
+.category-list li {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    background-color: #f8f9fa; /* Light background color for better contrast */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}

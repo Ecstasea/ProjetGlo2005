@@ -34,7 +34,7 @@
                 <li><a href="#">Recettes</a></li>
                 <!-- Modified part: Link to the ingredient list page -->
                 <li><a href="{{ url_for('show_ingredients') }}">Ingrédients</a></li>
-                <li><a href="#">Catégories</a></li>
+                <li><a href="{{ url_for('categories') }}">Catégories</a></li> <!-- Modified: Link to the categories page -->
                 {% if 'user_id' in session %}
                 <li><a href="{{ url_for('create_recipe') }}">Créer une recette</a></li>
                 <li><a href="{{ url_for('account') }}">Compte ({{ session['pseudo'] }})</a></li>

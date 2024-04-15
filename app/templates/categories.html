@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recettes de chez Nous - Ingrédients</title>
-    <link rel="stylesheet" href="../static/css/ingredients.css">
+    <title>Categories</title>
+    <link rel="stylesheet" href="../static/css/categories.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
@@ -14,9 +14,8 @@
             <h1 id="titre">Recettes de chez Nous</h1>
             <ul>
                 <li><a href="{{ url_for('accueil') }}">Accueil</a></li>
-                <!-- Modified part: Link to the ingredient list page -->
                 <li><a href="{{ url_for('show_ingredients') }}">Ingrédients</a></li>
-                <li><a href="{{ url_for('categories') }}">Catégories</a></li> <!-- Updated link -->
+                <li><a href="#">Catégories</a></li>
                 {% if 'user_id' in session %}
                 <li><a href="{{ url_for('account') }}">Compte ({{ session['pseudo'] }})</a></li>
                 <li><a href="{{ url_for('logout') }}">Déconnexion</a></li>
@@ -29,12 +28,14 @@
 
     <!-- Contenu principal -->
     <div class="container">
-        <h2 id="ingredients-title">Liste des Ingrédients</h2>
-        <ul class="ingredient-list">
-            {% for ingredient in ingredients %}
-                <li><a href="{{ url_for('accueil', ingredient=ingredient.nom) }}">{{ ingredient.nom }}</a></li>
-            {% endfor %}
-        </ul>
+        <h2 id="categories-title">Liste des Catégories</h2>
+        <div class="category-list">
+            <ul>
+                {% for category in categories %}
+                    <li><a href="{{ url_for('accueil', category=category.type) }}">{{ category.type }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
     <!-- Pied de page -->
