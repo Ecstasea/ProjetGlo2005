@@ -130,7 +130,7 @@ class Database:
 
     def create_trigger_Cuisinier(self):
         self.cursor.execute(       
-            """
+            """ 
             CREATE TRIGGER IF NOT EXISTS AfterUserInsert
             AFTER INSERT ON Utilisateurs
             FOR EACH ROW
