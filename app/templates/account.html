@@ -46,7 +46,7 @@
                 <p>Nombre de recettes: {{ cuisinier.nombre_recette }}</p>
                 <p>Année d'expérience: <input type="number" name="annee_experience" value="{{ cuisinier.annee_experience }}"></p>
                 <p>Bio: <textarea name="bio">{{ cuisinier.bio }}</textarea></p>
-                <p>Spécialité: 
+                <p>Spécialité:
                     <select name="specialite">
                         <option value="{{ cat_cuisinier.id }}">{{ cat_cuisinier.type }}</option>
                         {% for categorie in categorie %}

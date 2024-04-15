@@ -132,12 +132,14 @@ class Database:
         self.cursor.execute(       
             """ 
             CREATE TRIGGER IF NOT EXISTS AfterUserInsert
-            AFTER INSERT ON Utilisateurs
-            FOR EACH ROW
-            BEGIN
-                INSERT INTO Cuisiniers (id, nombre_recette, bio, photo_profil, annee_experience, specialite)
-                VALUES (NEW.id, 0, '', '../static/photos/avatar_1.png', 0, 21);
-            END;
+AFTER INSERT ON Utilisateurs
+FOR EACH ROW
+BEGIN
+    IF NEW.bool_cuisinier = 1 THEN
+        INSERT INTO Cuisiniers (id, nombre_recette, bio, photo_profil, annee_experience, specialite)
+        VALUES (NEW.id, 0, '', '../static/photos/avatar_1.png', 0, 21);
+    END IF;
+END;
             """
         )
 

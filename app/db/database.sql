@@ -86,7 +86,8 @@ DROP TABLE IF EXISTS Difficulte_recettes;
 DROP TABLE IF EXISTS Cuisinier_recettes;
 DROP TABLE IF EXISTS Ingredients ;
 DROP TABLE IF EXISTS Utilisateurs  ;
-
+DROP TRIGGER IF EXISTS AfterUserInsert;
+SHOW TRIGGERS;
 
 INSERT INTO Ingredients (nom) VALUES
 ('Sel'),
@@ -478,3 +479,10 @@ VALUES
 ('Pad Thai', '30', 4, 2, '2', 2, 21, '../static/photos/pad_thai.jpg', "Étape 1: Faites tremper les nouilles de riz dans l'eau chaude pendant environ 10 minutes, puis égouttez-les. Étape 2: Dans une poêle chaude, faites revenir l'ail et l'échalote dans de l'huile jusqu'à ce qu'ils soient dorés. Étape 3: Ajoutez les crevettes et faites-les cuire jusqu'à ce qu'elles soient roses. Étape 4: Poussez les crevettes sur un côté de la poêle et cassez un œuf dans l'autre côté. Battez l'œuf et faites-le cuire légèrement, puis mélangez-le avec les crevettes. Étape 5: Ajoutez les nouilles de riz trempées dans la poêle et mélangez bien avec les crevettes et l'œuf. Étape 6: Ajoutez la sauce Pad Thai et mélangez jusqu'à ce que tout soit bien enrobé. Étape 7: Ajoutez les germes de soja et les arachides hachées, puis mélangez à nouveau. Servez chaud.");
 
 Select * FROM recettes;
+
+INSERT INTO utilisateurs (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier)
+VALUES ('nom', 'Prénom', 'email@example.com', 25, 'pseudo_utilisateur', '123', 0);
+
+UPDATE utilisateurs
+SET bool_cuisinier = 1
+WHERE id = '1';

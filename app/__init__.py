@@ -205,12 +205,15 @@ def create_app():
                     cursor = db.connection.cursor(pymysql.cursors.DictCursor)
                     cursor.execute('SELECT * FROM Cuisiniers WHERE id = %s', (user_id,))
                     cuisinier = cursor.fetchone()
-                    cursor.execute('SELECT cr.id, cr.type FROM Cuisiniers c, categorie_recettes cr WHERE c.id = %s AND c.specialite = cr.id', (user_id,))
+                    cursor.execute(
+                        'SELECT cr.id, cr.type FROM Cuisiniers c, categorie_recettes cr WHERE c.id = %s AND c.specialite = cr.id',
+                        (user_id,))
                     cat_cuisinier = cursor.fetchone()
                     cursor.execute('SELECT * FROM categorie_recettes')
                     categorie = cursor.fetchall()
                     cursor.close()
-                    return render_template('account.html', user=user, cuisinier=cuisinier, categorie=categorie, cat_cuisinier=cat_cuisinier)
+                    return render_template('account.html', user=user, cuisinier=cuisinier, categorie=categorie,
+                                           cat_cuisinier=cat_cuisinier)
                 else:
                     return render_template('account.html', user=user)
             else:
@@ -229,49 +232,42 @@ def create_app():
             email = request.form['email']
             age = request.form['age']
             pseudo = request.form['pseudo']
+
             mot_de_passe = generate_password_hash(request.form['mot_de_passe'])
 
             # Vérifier si l'utilisateur est un cuisinier
             bool_cuisinier = request.form.get('bool_cuisinier', False)
             cursor = db.connection.cursor(pymysql.cursors.DictCursor)
-            if bool_cuisinier:
-                annee_experience = request.form.get('annee_experience', None)
-                bio = request.form.get('bio', None)
-                specialite = request.form.get('specialite', None)
-                nouvelle_photo = request.files.get('nouvelle_photo', None)
 
-                # Vérifier si une nouvelle photo a été téléchargée
-                if nouvelle_photo.filename:
+            annee_experience = request.form.get('annee_experience', None)
+            bio = request.form.get('bio', None)
+            specialite = request.form.get('specialite', None)
+            nouvelle_photo = request.files.get('nouvelle_photo', None)
+
+            # Vérifier si une nouvelle photo a été téléchargée
+            if nouvelle_photo.filename:
                     photo_path = os.path.join(app.static_folder, 'photos', nouvelle_photo.filename)
                     nouvelle_photo.save(photo_path)
                     chemin_relatif = "../static/photos/" + nouvelle_photo.filename
                     cursor.execute(
-                    'UPDATE Cuisiniers SET annee_experience = %s, bio = %s, specialite = %s, photo_profil = %s WHERE id = %s',
-                    (annee_experience, bio, specialite, chemin_relatif, user_id))
-                else:
+                        'UPDATE Cuisiniers SET annee_experience = %s, bio = %s, specialite = %s, photo_profil = %s WHERE id = %s',
+                        (annee_experience, bio, specialite, chemin_relatif, user_id))
+            else:
                     cursor.execute(
-                    'UPDATE Cuisiniers SET annee_experience = %s, bio = %s, specialite = %s WHERE id = %s',
-                    (annee_experience, bio, specialite, user_id))
+                        'UPDATE Cuisiniers SET annee_experience = %s, bio = %s, specialite = %s WHERE id = %s',
+                        (annee_experience, bio, specialite, user_id))
 
             # Exécuter la requête SQL pour mettre à jour tous les attributs de l'utilisateur
             cursor.execute(
                 'UPDATE utilisateurs SET nom = %s, prenom = %s, email = %s, age = %s, pseudo = %s, mot_de_passe = %s WHERE id = %s',
                 (nom, prenom, email, age, pseudo, mot_de_passe, user_id))
 
-                
+
             db.connection.commit()
             cursor.close()
             return redirect(url_for('account'))
         else:
             return redirect(url_for('accueil'))
-
-
-
-    @app.route('/recipes')
-    def recipes():
-        # Code pour afficher la liste des recettes
-        return render_template('recipes.html')
-
     @app.route('/create_recipe', methods=['GET', 'POST'])
     def create_recipe():
         if request.method == 'POST':
