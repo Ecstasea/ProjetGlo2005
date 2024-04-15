@@ -21,18 +21,12 @@ def create_app():
         session.pop('user_id', None)  # Efface automatiquement 'user_id' de la session
         return redirect(url_for('accueil'))
 
+    from flask import render_template, request
+
     @app.route('/accueil')
     def accueil():
         cursor = db.connection.cursor(pymysql.cursors.DictCursor)
         search_query = request.args.get('ingredient')
-        user_id = session.get('user_id')
-        cuisinier = False
-        if user_id:
-            cursor.execute("SELECT bool_cuisinier FROM Utilisateurs WHERE id = %s", (user_id,))
-            result = cursor.fetchone()
-            if result and result['bool_cuisinier']:
-                cuisinier = True
-
         if search_query:
             cursor.execute(
                 "SELECT r.nom, r.photo, d.type AS difficulte, r.id "
@@ -51,6 +45,14 @@ def create_app():
         recettes = cursor.fetchall()
         cursor.close()
         return render_template('accueil.html', recettes=recettes, cuisinier=cuisinier)
+
+    @app.route('/categories')
+    def categories():
+        cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("SELECT * FROM Categorie_recettes")
+        categories = cursor.fetchall()
+        cursor.close()
+        return render_template('categories.html', categories=categories)
 
     @app.route('/search', methods=['POST'])
     def search():
