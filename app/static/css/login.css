@@ -75,3 +75,16 @@ button[type="submit"]:hover {
     display: inline-block;
     text-align: left;
 }
+
+.register-link {
+    /* Ajoutez votre style CSS personnalisé ici */
+    color: blue;
+    text-decoration: none;
+    /* Centrer le texte */
+       
+}
+
+.register-link:hover {
+    /* Style au survol */
+    color: darkblue;
+}
