@@ -6,24 +6,7 @@
     <title>Recettes de chez Nous - Accueil</title>
     <link rel="stylesheet" href="../static/css/accueil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script>
-        function filterRecipes() {
-            var query = document.getElementById('searchQuery').value.toLowerCase(); // Convert input to lowercase
-            var recipes = document.getElementsByClassName('recipe-card'); // Get all recipe cards
-
-            // Loop through each recipe card
-            for (var i = 0; i < recipes.length; i++) {
-                var recipeName = recipes[i].querySelector('h3').textContent.toLowerCase(); // Get recipe name
-
-                // Check if the recipe name contains the query
-                if (recipeName.includes(query)) {
-                    recipes[i].style.display = 'block'; // Show the recipe card
-                } else {
-                    recipes[i].style.display = 'none'; // Hide the recipe card
-                }
-            }
-        }
-    </script>
+    <script src="../static/js/accueil.js"></script>       
 </head>
 <body>
     <!-- Barre de navigation -->
@@ -36,7 +19,9 @@
                 <li><a href="{{ url_for('show_ingredients') }}">Ingrédients</a></li>
                 <li><a href="#">Catégories</a></li>
                 {% if 'user_id' in session %}
-                <li><a href="{{ url_for('create_recipe') }}">Créer une recette</a></li>
+                {% if cuisinier %}
+                    <li><a href="{{ url_for('create_recipe') }}">Créer une recette</a></li>
+                {% endif %}
                 <li><a href="{{ url_for('account') }}">Compte ({{ session['pseudo'] }})</a></li>
                 <li><a href="{{ url_for('logout') }}">Déconnexion</a></li>
                 {% else %}

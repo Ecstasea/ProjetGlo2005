@@ -91,3 +91,17 @@ input[type="checkbox"] {
 .ingredient label {
     margin: 0; /* Enlève les marges par défaut */
 }
+
+/* Style pour les champs de quantité */
+input[type="number"] {
+    width: 70px; /* Largeur du champ de quantité */
+    padding: 8px; /* Espace intérieur du champ de quantité */
+    border-radius: 5px; /* Coins arrondis */
+    border: 1px solid #ccc; /* Bordure grise */
+}
+
+/* Style pour les étiquettes des champs de quantité */
+.ingredient input[type="number"] {
+    margin-left: 10px; /* Espace entre la case à cocher et le champ de quantité */
+}
+

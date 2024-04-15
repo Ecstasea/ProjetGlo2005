@@ -16,3 +16,15 @@ function filterIngredients() {
         }
     }
 }
+
+$(document).ready(function() {
+    $('input[type="checkbox"]').change(function() {
+        var ingredient_id = $(this).val();
+        var quantite_input = $('#quantite_ingredient' + ingredient_id);
+        if (this.checked) {
+            quantite_input.prop('disabled', false);
+        } else {
+            quantite_input.prop('disabled', true);
+        }
+    });
+});

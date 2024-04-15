@@ -136,11 +136,28 @@ class Database:
             FOR EACH ROW
             BEGIN
                 INSERT INTO Cuisiniers (id, nombre_recette, bio, photo_profil, annee_experience, specialite)
-                VALUES (NEW.id, 0, '', '../static/photos/avatar_1.png', 0, null);
+                VALUES (NEW.id, 0, '', '../static/photos/avatar_1.png', 0, 21);
             END;
             """
         )
 
+    def create_new_recipe_cuisinier(self):
+        self.cursor.execute(       
+            """
+            CREATE TRIGGER IF NOT EXISTS AfterReciteInsert
+            AFTER INSERT ON Recettes
+            FOR EACH ROW
+            BEGIN
+                DECLARE cuisinier_id INT;
+                SELECT id_cuisinier INTO cuisinier_id FROM Cuisinier_recettes WHERE id_recette = NEW.id;
+                IF cuisinier_id IS NOT NULL THEN
+                    UPDATE Cuisiniers
+                    SET nombre_recette = nombre_recette + 1
+                    WHERE id = cuisinier_id;
+                END IF;
+            END;
+            """
+        )
 
     def create_tables(self):
         self.create_utilisateurs_table()
@@ -153,6 +170,7 @@ class Database:
         self.create_ingredients_table()
         self.create_recettes_table()
         self.create_trigger_Cuisinier()
+        self.create_new_recipe_cuisinier()
         self.connection.commit()
 
     def insert_fake_users(self):

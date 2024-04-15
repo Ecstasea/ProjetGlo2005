@@ -25,6 +25,14 @@ def create_app():
     def accueil():
         cursor = db.connection.cursor(pymysql.cursors.DictCursor)
         search_query = request.args.get('ingredient')
+        user_id = session.get('user_id')
+        cuisinier = False
+        if user_id:
+            cursor.execute("SELECT bool_cuisinier FROM Utilisateurs WHERE id = %s", (user_id,))
+            result = cursor.fetchone()
+            if result and result['bool_cuisinier']:
+                cuisinier = True
+
         if search_query:
             cursor.execute(
                 "SELECT r.nom, r.photo, d.type AS difficulte, r.id "
@@ -42,7 +50,7 @@ def create_app():
             )
         recettes = cursor.fetchall()
         cursor.close()
-        return render_template('accueil.html', recettes=recettes)
+        return render_template('accueil.html', recettes=recettes, cuisinier=cuisinier)
 
     @app.route('/search', methods=['POST'])
     def search():
@@ -171,8 +179,12 @@ def create_app():
                     cursor = db.connection.cursor(pymysql.cursors.DictCursor)
                     cursor.execute('SELECT * FROM Cuisiniers WHERE id = %s', (user_id,))
                     cuisinier = cursor.fetchone()
+                    cursor.execute('SELECT cr.id, cr.type FROM Cuisiniers c, categorie_recettes cr WHERE c.id = %s AND c.specialite = cr.id', (user_id,))
+                    cat_cuisinier = cursor.fetchone()
+                    cursor.execute('SELECT * FROM categorie_recettes')
+                    categorie = cursor.fetchall()
                     cursor.close()
-                    return render_template('account.html', user=user, cuisinier=cuisinier)
+                    return render_template('account.html', user=user, cuisinier=cuisinier, categorie=categorie, cat_cuisinier=cat_cuisinier)
                 else:
                     return render_template('account.html', user=user)
             else:
@@ -192,19 +204,42 @@ def create_app():
             age = request.form['age']
             pseudo = request.form['pseudo']
             mot_de_passe = generate_password_hash(request.form['mot_de_passe'])
-            bool_cuisinier = request.form.get('bool_cuisinier', False)
 
-            cursor = db.connection.cursor()
+            # Vérifier si l'utilisateur est un cuisinier
+            bool_cuisinier = request.form.get('bool_cuisinier', False)
+            cursor = db.connection.cursor(pymysql.cursors.DictCursor)
+            if bool_cuisinier:
+                annee_experience = request.form.get('annee_experience', None)
+                bio = request.form.get('bio', None)
+                specialite = request.form.get('specialite', None)
+                nouvelle_photo = request.files.get('nouvelle_photo', None)
+
+                # Vérifier si une nouvelle photo a été téléchargée
+                if nouvelle_photo.filename:
+                    photo_path = os.path.join(app.static_folder, 'photos', nouvelle_photo.filename)
+                    nouvelle_photo.save(photo_path)
+                    chemin_relatif = "../static/photos/" + nouvelle_photo.filename
+                    cursor.execute(
+                    'UPDATE Cuisiniers SET annee_experience = %s, bio = %s, specialite = %s, photo_profil = %s WHERE id = %s',
+                    (annee_experience, bio, specialite, chemin_relatif, user_id))
+                else:
+                    cursor.execute(
+                    'UPDATE Cuisiniers SET annee_experience = %s, bio = %s, specialite = %s WHERE id = %s',
+                    (annee_experience, bio, specialite, user_id))
+
             # Exécuter la requête SQL pour mettre à jour tous les attributs de l'utilisateur
             cursor.execute(
-                'UPDATE utilisateurs SET nom = %s, prenom = %s, email = %s, age = %s, pseudo = %s, mot_de_passe = %s, bool_cuisinier = %s WHERE id = %s',
-                (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier, user_id))
+                'UPDATE utilisateurs SET nom = %s, prenom = %s, email = %s, age = %s, pseudo = %s, mot_de_passe = %s WHERE id = %s',
+                (nom, prenom, email, age, pseudo, mot_de_passe, user_id))
 
+                
             db.connection.commit()
             cursor.close()
             return redirect(url_for('account'))
         else:
             return redirect(url_for('accueil'))
+
+
 
     @app.route('/recipes')
     def recipes():
@@ -214,45 +249,52 @@ def create_app():
     @app.route('/create_recipe', methods=['GET', 'POST'])
     def create_recipe():
         if request.method == 'POST':
-            #nom = request.form['nom']
-            #type_recette = request.form['type_recette']
-            #categorie_recette = request.form['categorie_recette']
-            #portion = request.form['portion']
-            #difficulte_recette = request.form['difficulte_recette']
-            #ingredients = request.form.getlist('ingredients')
-            #photo = request.files['photo']
-            #etapes = request.form['etapes']
+            if 'user_id' in session:
+                user_id = session['user_id']
+                nom = request.form['nom']
+                temps_preparation = request.form['temps_preparation']
+                type_recette = request.form['type_recette']
+                categorie_recette = request.form['categorie_recette']
+                portion = request.form['portion']
+                difficulte_recette = request.form['difficulte_recette']
+                photo = request.files['photo']
+                photo_path = os.path.join(app.static_folder, 'photos', photo.filename)
+                photo.save(photo_path)
+                chemin_relatif = "../static/photos/" + photo.filename
+                etapes = request.form['etapes']
+                ingredients = request.form.getlist('ingredients')  # Liste des ID des ingrédients sélectionnés
+                quantites = {}
+                for ingredient_id in ingredients:
+                    quantite = request.form.get(f'quantites[{ingredient_id}]')
+                    quantites[ingredient_id] = quantite
+                print("Ingrédients:", ingredients)
+                print("Quantités:", quantites)  
+                cursor = db.connection.cursor()
+                cursor.execute("SELECT Max(id) + 1 AS next_id FROM Recettes")
+                result = cursor.fetchone()
+                new_id_recette = result['next_id']
 
-            # Traiter la photo (sauvegarde, etc.)
-            #photo.save('../static/photos/food.png' + photo.filename)
-            cursor = db.connection.cursor()
+                cursor.execute("INSERT INTO Cuisinier_recettes (id_cuisinier, id_recette) VALUES (%s, %s)", (user_id, new_id_recette))
 
-            cursor.execute("""
-                    INSERT INTO Cuisinier_recettes(id_cuisinier, id_recette)
-                VALUES (27, 24)
-                                        """)
-            db.connection.commit()
-            cursor.close()
+                for ingredient_id, quantite in quantites.items():
+                    print("new_id_recette:", new_id_recette)
+                    print("ingredient_id:", ingredient_id)
+                    print("quantite:", quantite)
+                    cursor.execute("INSERT INTO Recette_ingredients (id_recette, id_ingredient, quantite) VALUES (%s, %s, %s)",
+                                (new_id_recette, ingredient_id, quantite))
 
-            cursor = db.connection.cursor()
+                cursor.execute("INSERT INTO Recettes (id, nom, temps_preparation, type_recette, categorie_recette, portion, difficultee_recette, photo, etapes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+               (new_id_recette, nom, temps_preparation, type_recette, categorie_recette, portion, difficulte_recette, chemin_relatif, etapes))
+                db.connection.commit()  
 
-            cursor.execute("""
-                                INSERT INTO Recette_ingredients (id_recette, id_ingredient, quantite)
-                                VALUES (24, 9, 150.0)
-                            """)
-            db.connection.commit()
-            cursor.close()
+                
+                cursor.close()
 
-            cursor = db.connection.cursor()
 
-            cursor.execute("""
-                    INSERT INTO Recettes (nom, temps_preparation, type_recette, categorie_recette, portion, difficultee_recette, photo, etapes)
-                    VALUES ('sa', '15', 1, 1, '4', 1,'../static/photos/food.png', '')
-                """)
-            db.connection.commit()
-            cursor.close()
 
-            return redirect(url_for('accueil'))  # Rediriger vers la page d'accueil après la création de la recette
+                return redirect(url_for('accueil'))  # Rediriger vers la page d'accueil après la création de la recette
+            else:
+                return redirect(url_for('accueil'))
         else:
             cursor = db.connection.cursor()
             
