@@ -13,11 +13,14 @@
         <div class="container">
             <h1 id="titre">Recettes de chez Nous</h1>
             <ul>
-                <li><a href="{{ url_for('accueil') }}">Accueil</a></li>
+                <li><a href="{{ url_for('accueil') }}">Recettes</a></li>
                 <!-- Modified part: Link to the ingredient list page -->
                 <li><a href="{{ url_for('show_ingredients') }}">Ingrédients</a></li>
-                <li><a href="{{ url_for('categories') }}">Catégories</a></li> <!-- Updated link -->
+                <li><a href="{{ url_for('categories') }}">Catégories</a></li> <!-- Modified: Link to the categories page -->
                 {% if 'user_id' in session %}
+                {% if cuisinier %}
+                <li><a href="{{ url_for('create_recipe') }}">Créer une recette</a></li>
+                {% endif %}
                 <li><a href="{{ url_for('account') }}">Compte ({{ session['pseudo'] }})</a></li>
                 <li><a href="{{ url_for('logout') }}">Déconnexion</a></li>
                 {% else %}

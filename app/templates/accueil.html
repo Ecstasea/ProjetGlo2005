@@ -6,7 +6,7 @@
     <title>Recettes de chez Nous - Accueil</title>
     <link rel="stylesheet" href="../static/css/accueil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="../static/js/accueil.js"></script>       
+    <script src="../static/js/accueil.js"></script>
 </head>
 <body>
     <!-- Barre de navigation -->
@@ -20,7 +20,7 @@
                 <li><a href="{{ url_for('categories') }}">Catégories</a></li> <!-- Modified: Link to the categories page -->
                 {% if 'user_id' in session %}
                 {% if cuisinier %}
-                    <li><a href="{{ url_for('create_recipe') }}">Créer une recette</a></li>
+                <li><a href="{{ url_for('create_recipe') }}">Créer une recette</a></li>
                 {% endif %}
                 <li><a href="{{ url_for('account') }}">Compte ({{ session['pseudo'] }})</a></li>
                 <li><a href="{{ url_for('logout') }}">Déconnexion</a></li>
