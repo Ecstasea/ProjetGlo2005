@@ -171,8 +171,8 @@ END;
         self.create_cuisiniers_table()
         self.create_ingredients_table()
         self.create_recettes_table()
-        #self.create_trigger_Cuisinier()
-        #self.create_new_recipe_cuisinier()
+        self.create_trigger_Cuisinier()
+        self.create_new_recipe_cuisinier()
         self.connection.commit()
 
     def insert_fake_users(self):
