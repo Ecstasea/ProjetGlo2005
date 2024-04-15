@@ -137,7 +137,7 @@ FOR EACH ROW
 BEGIN
     IF NEW.bool_cuisinier = 1 THEN
         INSERT INTO Cuisiniers (id, nombre_recette, bio, photo_profil, annee_experience, specialite)
-        VALUES (NEW.id, 0, '', '../static/photos/avatar_1.png', 0, 21);
+        VALUES (NEW.id, 0, 'Pas encore de bio', '../static/photos/avatar_1.png', 0, 21);
     END IF;
 END;
             """
@@ -171,8 +171,8 @@ END;
         self.create_cuisiniers_table()
         self.create_ingredients_table()
         self.create_recettes_table()
-        self.create_trigger_Cuisinier()
-        self.create_new_recipe_cuisinier()
+        #self.create_trigger_Cuisinier()
+        #self.create_new_recipe_cuisinier()
         self.connection.commit()
 
     def insert_fake_users(self):

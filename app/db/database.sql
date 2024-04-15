@@ -240,7 +240,8 @@ INSERT INTO Categorie_recettes (id, type) VALUES
 (17, 'Africain'),
 (18, 'Portugais'),
 (19, 'Russe'),
-(20, 'Coréen');
+(20, 'Coréen'),
+(21, 'Aucune');
 
 Select * from Categorie_recettes;
 
