@@ -486,14 +486,3 @@ VALUES ('nom', 'Prénom', 'email@example.com', 25, 'pseudo_utilisateur', '123', 
 UPDATE utilisateurs
 SET bool_cuisinier = 1
 WHERE id = '1';
-
-CREATE INDEX idx_utilisateurs_email ON Utilisateurs (email);
-
--- Index sur la colonne nom dans la table Recettes
-CREATE INDEX idx_recettes_nom ON Recettes (nom);
-
--- Index sur les colonnes type_recette, categorie_recette, difficultee_recette dans la table Recettes
-CREATE INDEX idx_recettes_type_categorie_difficulte ON Recettes (type_recette, categorie_recette, difficultee_recette);
-
--- Index sur la colonne nom dans la table Ingredients
-CREATE INDEX idx_ingredients_nom ON Ingredients (nom);
