@@ -42,7 +42,7 @@ class Database: #Permet de créer la database
     quantite FLOAT,
     FOREIGN KEY (id_recette) REFERENCES Recettes(id),
     FOREIGN KEY (id_ingredient) REFERENCES Ingredients(id)
-)
+) AUTO_INCREMENT=0;
         """
         self.cursor.execute(create_table_query)
 
@@ -162,7 +162,6 @@ END;
 
     def create_tables(self):
         self.create_utilisateurs_table()
-        self.create_recette_ingredients_table()
         self.create_categorie_recettes_table()
         self.create_type_recettes_table()
         self.create_difficulte_recettes_table()
@@ -170,6 +169,7 @@ END;
         self.create_cuisiniers_table()
         self.create_ingredients_table()
         self.create_recettes_table()
+        self.create_recette_ingredients_table()
         self.create_trigger_Cuisinier()
         self.create_new_recipe_cuisinier()
         self.connection.commit()
