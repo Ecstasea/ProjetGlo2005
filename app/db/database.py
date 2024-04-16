@@ -131,30 +131,35 @@ class Database: #Permet de créer la database
         self.cursor.execute(       
             """ 
             CREATE TRIGGER IF NOT EXISTS AfterUserInsert
-AFTER INSERT ON Utilisateurs
-FOR EACH ROW
-BEGIN
-    IF NEW.bool_cuisinier = 1 THEN
-        INSERT INTO Cuisiniers (id, nombre_recette, bio, photo_profil, annee_experience, specialite)
-        VALUES (NEW.id, 0, 'Pas encore de bio', '../static/photos/avatar_1.png', 0, 21);
-    END IF;
-END;
+            AFTER INSERT ON Utilisateurs
+            FOR EACH ROW
+            BEGIN
+                IF NEW.bool_cuisinier = 1 THEN
+                    INSERT INTO Cuisiniers (id, nombre_recette, bio, photo_profil, annee_experience, specialite)
+                    VALUES (NEW.id, 0, 'Pas encore de bio', '../static/photos/avatar_1.png', 0, 21);
+                END IF;
+            END;
             """
         )
 
     def create_new_recipe_cuisinier(self):
-        self.cursor.execute(       
+        self.cursor.execute(
             """
-            CREATE TRIGGER IF NOT EXISTS AfterReciteInsert
-            AFTER INSERT ON Recettes
+            CREATE TRIGGER AfterReciteInsert
+            AFTER INSERT ON cuisinier_recettes
             FOR EACH ROW
             BEGIN
-                DECLARE cuisinier_id INT;
-                SELECT id_cuisinier INTO cuisinier_id FROM Cuisinier_recettes WHERE id_recette = NEW.id;
-                IF cuisinier_id IS NOT NULL THEN
+                DECLARE nb_recette INT;
+                DECLARE cook_id INT;
+            
+                SET cook_id = NEW.id_cuisinier;
+                SELECT COUNT(*) INTO nb_recette FROM cuisinier_recettes WHERE id_cuisinier = cook_id;
+                IF cook_id IS NULL THEN
+                    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erreur triggertest';
+                ELSE
                     UPDATE Cuisiniers
-                    SET nombre_recette = nombre_recette + 1
-                    WHERE id = cuisinier_id;
+                    SET nombre_recette = nb_recette
+                    WHERE id = cook_id;
                 END IF;
             END;
             """

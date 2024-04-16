@@ -501,3 +501,5 @@ SELECT * FROM Utilisateurs  ;
 
 SELECT * FROM Utilisateurs ORDER BY id DESC ;
 SELECT * FROM cuisiniers ORDER BY id DESC ;
+
+SHOW TRIGGERS ;
