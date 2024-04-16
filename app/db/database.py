@@ -35,13 +35,14 @@ class Database:
 
     def create_recette_ingredients_table(self):
         create_table_query = """
-        CREATE TABLE IF NOT EXISTS Recette_ingredients (
-            id_recette INT,
-            id_ingredient INT,
-            quantite FLOAT,
-            PRIMARY KEY (id_recette, id_ingredient),
-            INDEX (id_ingredient)
-        )
+        CREATE TABLE IF NOT EXISTS Recette_Ingredients (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_recette INT,
+    id_ingredient INT,
+    quantite FLOAT,
+    FOREIGN KEY (id_recette) REFERENCES Recettes(id),
+    FOREIGN KEY (id_ingredient) REFERENCES Ingredients(id)
+)
         """
         self.cursor.execute(create_table_query)
 
@@ -110,21 +111,19 @@ class Database:
     def create_recettes_table(self):
         create_table_query = """
         CREATE TABLE IF NOT EXISTS Recettes (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            nom VARCHAR(100),
-            temps_preparation enum('15', '30', '45', '60', '90', '120'),
-            type_recette INT,
-            categorie_recette INT,
-            Portion enum('1', '2', '4', '8'),
-            difficultee_recette INT,
-            ingredient INT,
-            photo VARCHAR(2048),
-            etapes VARCHAR(2048),
-            FOREIGN KEY (type_recette) REFERENCES Type_recettes(id),
-            FOREIGN KEY (categorie_recette) REFERENCES Categorie_recettes(id),
-            FOREIGN KEY (difficultee_recette) REFERENCES Difficulte_recettes(id),
-            FOREIGN KEY (ingredient) REFERENCES Recette_ingredients (id_recette)
-        )
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100),
+    temps_preparation ENUM('15', '30', '45', '60', '90', '120'),
+    type_recette INT,
+    categorie_recette INT,
+    portion ENUM('1', '2', '4', '8'),
+    difficultee_recette INT,
+    photo VARCHAR(2048),
+    etapes VARCHAR(2048),
+    FOREIGN KEY (type_recette) REFERENCES Type_recettes(id),
+    FOREIGN KEY (categorie_recette) REFERENCES Categorie_recettes(id),
+    FOREIGN KEY (difficultee_recette) REFERENCES Difficulte_recettes(id)
+)
         """
         self.cursor.execute(create_table_query)
 

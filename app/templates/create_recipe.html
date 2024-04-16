@@ -69,8 +69,7 @@
             <div class="ingredient">
                 <input type="checkbox" id="ingredient{{ ingredient.id }}" name="ingredients" value="{{ ingredient.id }}">
                 <label for="ingredient{{ ingredient.id }}">{{ ingredient.nom }}</label>
-                <input type="number" id="quantite_ingredient{{ ingredient.id }}" name="quantites[{{ ingredient.id }}]" placeholder="Quantité" step="0.1" disabled>
-                <br>
+                <input type="number" id="quantite_ingredient{{ ingredient.id }}" name="quantites[{{ ingredient.id }}]" placeholder="Quantité" step="0.1" disabled><br>
             </div>
             {% endfor %}
         </div>

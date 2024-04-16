@@ -268,6 +268,7 @@ def create_app():
             return redirect(url_for('account'))
         else:
             return redirect(url_for('accueil'))
+
     @app.route('/create_recipe', methods=['GET', 'POST'])
     def create_recipe():
         if request.method == 'POST':
@@ -284,63 +285,54 @@ def create_app():
                 photo.save(photo_path)
                 chemin_relatif = "../static/photos/" + photo.filename
                 etapes = request.form['etapes']
-                ingredients = request.form.getlist('ingredients')  # Liste des ID des ingrédients sélectionnés
+                ingredients = request.form.getlist('ingredients')
                 quantites = {}
                 for ingredient_id in ingredients:
                     quantite = request.form.get(f'quantites[{ingredient_id}]')
                     quantites[ingredient_id] = quantite
-                print("Ingrédients:", ingredients)
-                print("Quantités:", quantites)  
+
                 cursor = db.connection.cursor()
-                cursor.execute("SELECT Max(id) + 1 AS next_id FROM Recettes")
+                cursor.execute("SELECT MAX(id) + 1 AS next_id FROM Recettes")
                 result = cursor.fetchone()
                 new_id_recette = result['next_id']
 
-                cursor.execute("INSERT INTO Cuisinier_recettes (id_cuisinier, id_recette) VALUES (%s, %s)", (user_id, new_id_recette))
+                cursor.execute(
+                    "INSERT INTO Recettes (id, nom, temps_preparation, type_recette, categorie_recette, portion, difficultee_recette, photo, etapes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                    (new_id_recette, nom, temps_preparation, type_recette, categorie_recette, portion,
+                     difficulte_recette, chemin_relatif, etapes))
+
+                cursor.execute("INSERT INTO Cuisinier_recettes (id_cuisinier, id_recette) VALUES (%s, %s)",
+                               (user_id, new_id_recette))
 
                 for ingredient_id, quantite in quantites.items():
-                    print("new_id_recette:", new_id_recette)
-                    print("ingredient_id:", ingredient_id)
-                    print("quantite:", quantite)
-                    cursor.execute("INSERT INTO Recette_ingredients (id_recette, id_ingredient, quantite) VALUES (%s, %s, %s)",
-                                (new_id_recette, ingredient_id, quantite))
+                    cursor.execute(
+                        "INSERT INTO Recette_ingredients (id_recette, id_ingredient, quantite) VALUES (%s, %s, %s)",
+                        (new_id_recette, ingredient_id, quantite))
 
-                cursor.execute("INSERT INTO Recettes (id, nom, temps_preparation, type_recette, categorie_recette, portion, difficultee_recette, photo, etapes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-               (new_id_recette, nom, temps_preparation, type_recette, categorie_recette, portion, difficulte_recette, chemin_relatif, etapes))
-                db.connection.commit()  
-
-                
+                db.connection.commit()
                 cursor.close()
 
-
-
-                return redirect(url_for('accueil'))  # Rediriger vers la page d'accueil après la création de la recette
+                return redirect(url_for('accueil'))
             else:
                 return redirect(url_for('accueil'))
         else:
             cursor = db.connection.cursor()
-            
-            # Récupérer tous les ingrédients
             cursor.execute("SELECT * FROM ingredients")
             ingredients = cursor.fetchall()
-            
-            # Récupérer toutes les difficultés
+
             cursor.execute("SELECT * FROM difficulte_recettes")
             difficultes = cursor.fetchall()
 
-            # Récupérer toutes les catégories de recettes
             cursor.execute("SELECT * FROM categorie_recettes")
             categories = cursor.fetchall()
 
-            # Récupérer tous les types de recettes
             cursor.execute("SELECT * FROM type_recettes")
             types = cursor.fetchall()
-            
+
             cursor.close()
 
-            # Envoyer ces données au template pour les afficher dans les champs appropriés.
-            return render_template('create_recipe.html', ingredients=ingredients, difficultes=difficultes, categories=categories, types=types)
-
+            return render_template('create_recipe.html', ingredients=ingredients, difficultes=difficultes,
+                                   categories=categories, types=types)
 
     @app.route('/ingredients')
     def show_ingredients():
