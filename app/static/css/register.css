@@ -71,3 +71,9 @@ button[type="submit"]:hover {
     margin-bottom: 10px;
     border-radius: 5px;
 }
+/* Style pour les messages d'erreur */
+.error-message {
+    color: #ff0000; /* Couleur rouge */
+    font-size: 0.9em; /* Taille de la police légèrement réduite */
+    margin-top: 5px; /* Marge en haut pour séparer des champs de formulaire */
+}

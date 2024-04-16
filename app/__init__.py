@@ -1,3 +1,5 @@
+
+
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_wtf.csrf import CSRFProtect
 import pymysql
@@ -10,6 +12,7 @@ from pymysql import IntegrityError
 def create_app():
     app = Flask(__name__)
     app.config.from_object('config.Config')
+
 
     db = Database(app)
     db.create_tables()
@@ -175,8 +178,20 @@ def create_app():
             mot_de_passe = generate_password_hash(request.form['mot_de_passe'])
             bool_cuisinier = request.form.get('bool_cuisinier', False)
 
+            # Vérifier les contraintes côté serveur
+            if not nom.isalpha():
+                error = "Le nom ne doit contenir que des lettres."
+                return render_template('register.html', error=error)
+
+            if not prenom.isalpha():
+                error = "Le prénom ne doit contenir que des lettres."
+                return render_template('register.html', error=error)
+
+            if not age.isdigit() or int(age) < 0:
+                error = "L'âge doit être un nombre entier positif."
+                return render_template('register.html', error=error)
+
             try:
-                # Utiliser la connexion à la base de données pour créer le curseur
                 cursor = db.connection.cursor()
                 cursor.execute(
                     'INSERT INTO Utilisateurs (nom, prenom, email, age, pseudo, mot_de_passe, bool_cuisinier) VALUES (%s, %s, %s, %s, %s, %s, %s)',

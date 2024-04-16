@@ -12,27 +12,27 @@
     <form method="POST" action="{{ url_for('register') }}">
         <div class="form-group">
             <label for="nom">Nom:</label><br>
-            <input type="text" id="nom" name="nom" required><br>
+            <input type="text" id="nom" name="nom" required value="{{ request.form.get('nom', '') }}"><br>
         </div>
         <div class="form-group">
             <label for="prenom">Prénom:</label><br>
-            <input type="text" id="prenom" name="prenom" required><br>
+            <input type="text" id="prenom" name="prenom" required value="{{ request.form.get('prenom', '') }}"><br>
         </div>
         <div class="form-group">
             <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" required><br>
+            <input type="email" id="email" name="email" required value="{{ request.form.get('email', '') }}"><br>
         </div>
         <div class="form-group">
             <label for="age">Age:</label><br>
-            <input type="number" id="age" name="age" required><br>
+            <input type="number" id="age" name="age" required value="{{ request.form.get('age', '') }}"><br>
         </div>
         <div class="form-group">
             <label for="pseudo">Pseudo:</label><br>
-            <input type="text" id="pseudo" name="pseudo" required><br>
+            <input type="text" id="pseudo" name="pseudo" required value="{{ request.form.get('pseudo', '') }}"><br>
         </div>
         <div class="form-group">
             <label for="mot_de_passe">Mot de passe:</label><br>
-            <input type="password" id="mot_de_passe" name="mot_de_passe" required><br>
+            <input type="password" id="mot_de_passe" name="mot_de_passe" required value="{{ request.form.get('mot_de_passe', '') }}"><br>
         </div>
         <div class="form-group">
             <label for="bool_cuisinier">Cuisinier:</label><br>
