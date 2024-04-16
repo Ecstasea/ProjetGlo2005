@@ -1,3 +1,5 @@
+/* create_recipe.css */
+
 /* Style du corps de la page */
 body {
     font-family: Arial, sans-serif;
@@ -12,10 +14,10 @@ h2 {
     text-align: center;
     font-size: 2.5em;
     margin-bottom: 20px;
-    color: #007bff; /* Couleur bleue */
-    text-transform: uppercase; /* Convertit le texte en majuscules */
-    letter-spacing: 2px; /* Espacement entre les lettres */
-    font-family: 'Arial Black', sans-serif; /* Police de caractères */
+    color: #007bff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Arial Black', sans-serif;
 }
 
 /* Style du formulaire */
@@ -45,7 +47,7 @@ textarea {
     border-radius: 5px;
     border: 1px solid #ccc;
     margin-bottom: 15px;
-    box-sizing: border-box; /* Pour inclure le padding et la bordure dans la largeur */
+    box-sizing: border-box;
 }
 
 /* Style du bouton */
@@ -67,9 +69,9 @@ button[type="submit"]:hover {
 
 /* Style du message d'erreur */
 .error-message {
-    color: #d9534f; /* Rouge */
-    background-color: #f2dede; /* Rouge plus clair */
-    border: 1px solid #d9534f; /* Bordure rouge */
+    color: #d9534f;
+    background-color: #f2dede;
+    border: 1px solid #d9534f;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -78,30 +80,37 @@ button[type="submit"]:hover {
 /* Style pour les conteneurs d'ingrédients */
 .ingredient {
     display: flex;
-    align-items: center; /* Centre verticalement les éléments */
+    align-items: center;
     margin-bottom: 5px;
 }
 
 /* Style pour les cases à cocher */
 input[type="checkbox"] {
-    margin-right: 10px; /* Espace entre la case à cocher et le label */
+    margin-right: 10px;
 }
 
 /* Style pour les labels des ingrédients */
 .ingredient label {
-    margin: 0; /* Enlève les marges par défaut */
+    margin: 0;
 }
 
 /* Style pour les champs de quantité */
 input[type="number"] {
-    width: 70px; /* Largeur du champ de quantité */
-    padding: 8px; /* Espace intérieur du champ de quantité */
-    border-radius: 5px; /* Coins arrondis */
-    border: 1px solid #ccc; /* Bordure grise */
+    width: 70px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 /* Style pour les étiquettes des champs de quantité */
 .ingredient input[type="number"] {
-    margin-left: 10px; /* Espace entre la case à cocher et le champ de quantité */
+    margin-left: 10px;
+
+}/* Style du pied de page */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
 }
 

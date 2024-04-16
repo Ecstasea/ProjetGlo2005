@@ -14,9 +14,8 @@
             <h1 id="titre">Recettes de chez Nous</h1>
             <ul>
                 <li><a href="{{ url_for('accueil') }}">Recettes</a></li>
-                <!-- Modified part: Link to the ingredient list page -->
                 <li><a href="{{ url_for('show_ingredients') }}">Ingrédients</a></li>
-                <li><a href="{{ url_for('categories') }}">Catégories</a></li> <!-- Modified: Link to the categories page -->
+                <li><a href="{{ url_for('categories') }}">Catégories</a></li>
                 {% if 'user_id' in session %}
                 {% if cuisinier %}
                 <li><a href="{{ url_for('create_recipe') }}">Créer une recette</a></li>
@@ -40,10 +39,10 @@
         </ul>
     </div>
 
-    <!-- Pied de page -->
+
     <footer>
         <div class="container">
-            <p>Nos noms</p>
+            <p>Thomas Florian Devincenzi & Mattieu Girard-Métivier & Samuel Verreault</p>
         </div>
     </footer>
 </body>

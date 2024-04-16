@@ -1,3 +1,5 @@
+/* register.css */
+
 /* Style du corps de la page */
 body {
     font-family: Arial, sans-serif;
@@ -10,10 +12,10 @@ h2 {
     text-align: center;
     font-size: 2.5em;
     margin-bottom: 20px;
-    color: #007bff; /* Couleur bleue */
-    text-transform: uppercase; /* Convertit le texte en majuscules */
-    letter-spacing: 2px; /* Espacement entre les lettres */
-    font-family: 'Arial Black', sans-serif; /* Police de caractères */
+    color: #007bff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Arial Black', sans-serif;
 }
 
 /* Style du formulaire */
@@ -64,16 +66,24 @@ button[type="submit"]:hover {
 }
 
 .error-message {
-    color: #d9534f; /* Rouge */
-    background-color: #f2dede; /* Rouge plus clair */
-    border: 1px solid #d9534f; /* Bordure rouge */
+    color: #d9534f;
+    background-color: #f2dede;
+    border: 1px solid #d9534f;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
 }
 /* Style pour les messages d'erreur */
 .error-message {
-    color: #ff0000; /* Couleur rouge */
-    font-size: 0.9em; /* Taille de la police légèrement réduite */
-    margin-top: 5px; /* Marge en haut pour séparer des champs de formulaire */
+    color: #ff0000;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+/* Style du pied de page */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
 }

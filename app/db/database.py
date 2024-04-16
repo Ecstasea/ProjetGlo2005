@@ -1,7 +1,7 @@
 import pymysql
 
 
-class Database:
+class Database: #Permet de créer la database
     def __init__(self, app):
         self.connection = pymysql.connect(
             host=app.config['MYSQL_DATABASE_HOST'],

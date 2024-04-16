@@ -59,10 +59,10 @@ nav ul li a:hover {
     text-align: center;
     font-size: 2.5em;
     margin-bottom: 20px;
-    color: white; /* Couleur bleue */
-    text-transform: uppercase; /* Convertit le texte en majuscules */
-    letter-spacing: 2px; /* Espacement entre les lettres */
-    font-family: 'Arial Black', sans-serif; /* Police de caractères */
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Arial Black', sans-serif;
 }
 
 /* Style de la barre de recherche */
@@ -82,7 +82,7 @@ nav ul li a:hover {
 }
 
 .search-bar button {
-    padding: 8px 12px; /* Réduit la taille horizontale du bouton */
+    padding: 8px 12px;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -110,9 +110,9 @@ nav ul li a:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
     overflow: hidden;
-    text-align: center; /* Centrer le contenu */
-    height: 350px; /* Adjust the height as needed */
-    width: 250px; /* Set a fixed width for recipe cards */
+    text-align: center;
+    height: 350px;
+    width: 250px;
 }
 
 
@@ -122,11 +122,11 @@ nav ul li a:hover {
 
 .recipe-card img {
     margin-top: 10px;
-    max-width: 200px; /* Ensure image doesn't exceed card width */
+    max-width: 200px;
     height: 200px; 
     display: block; 
-    margin-left: auto; /* Centre l'image horizontalement */
-    margin-right: auto; /* Centre l'image horizontalement */
+    margin-left: auto;
+    margin-right: auto;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -147,16 +147,16 @@ nav ul li a:hover {
 .recipe-card p {
     font-size: 1em;
     color: #666;
-    margin-bottom: 10px; /* Augmente l'espace entre la difficulté et le bouton */
+    margin-bottom: 10px;
 }
 
 /* Style de la difficulté */
 .difficulty {
-    margin-bottom: 10px; /* Espace entre la difficulté et le bouton */
+    margin-bottom: 10px;
 }
 
 .difficulty-level {
-    background-color: #28a745; /* Vert */
+    background-color: #28a745;
     color: #fff;
     padding: 5px 10px;
     border-radius: 5px;
@@ -166,15 +166,15 @@ nav ul li a:hover {
 .recipe-button {
     background-color: #007bff;
     color: #fff;
-    padding: 8px 16px; /* Conserve la taille verticale du bouton */
+    padding: 8px 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 0.8em; /* Réduit la taille du texte du bouton */
+    font-size: 0.8em;
     transition: background-color 0.3s;
-    width: fit-content; /* Taille horizontale ajustée au contenu */
-    margin: 10px auto 0; /* Espace en haut, centré horizontalement */
-    display: block; /* Affiche le bouton en bloc (une ligne) */
+    width: fit-content;
+    margin: 10px auto 0;
+    display: block;
 }
 
 .recipe-button:hover {

@@ -1,4 +1,5 @@
-/* Style du corps de la page */
+/* account.css */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -7,17 +8,17 @@ body {
     padding: 0;
 }
 
-/* Style du titre */
+
 h2 {
     text-align: center;
     font-size: 2.5em;
     margin-bottom: 20px;
-    color: #007bff; /* Couleur bleue */
-    text-transform: uppercase; /* Convertit le texte en majuscules */
-    font-family: 'Arial Black', sans-serif; /* Police de caractères */
+    color: #007bff;
+    text-transform: uppercase;
+    font-family: 'Arial Black', sans-serif;
 }
 
-/* Style du formulaire */
+
 .account-form {
     max-width: 600px;
     margin: 20px auto;
@@ -27,14 +28,14 @@ h2 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Style des étiquettes */
+
 .account-form label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
 }
 
-/* Style des champs de saisie */
+
 .account-form input[type="text"],
 .account-form input[type="email"],
 .account-form input[type="password"],
@@ -47,7 +48,7 @@ h2 {
     margin-bottom: 15px;
 }
 
-/* Styles généraux */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -70,7 +71,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* Style du titre */
+
 h2 {
     text-align: center;
     margin-bottom: 20px;
@@ -81,7 +82,7 @@ h2 {
     font-family: 'Arial Black', sans-serif;
 }
 
-/* Style de l'image */
+
 img {
     display: block;
     margin: 0 auto;
@@ -91,19 +92,19 @@ img {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Style des titres */
+
 h3 {
     margin-top: 20px;
     font-size: 1.5em;
     color: #007bff;
 }
 
-/* Style des paragraphes */
+
 p {
     margin-top: 5px;
 }
 
-/* Style du bouton pour revenir à l'accueil */
+
 .home-button {
     display: block;
     width: 200px;
@@ -140,4 +141,12 @@ p {
 
 .profile-button:hover {
     background-color: #0056b3;
+}
+
+/* Style du pied de page */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
 }

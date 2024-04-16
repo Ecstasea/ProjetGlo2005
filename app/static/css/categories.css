@@ -1,4 +1,5 @@
 /* Categories.css */
+
 * {
     margin: 0;
     padding: 0;
@@ -68,27 +69,28 @@ nav ul li a:hover {
     font-size: 2em;
     margin-bottom: 20px;
     text-decoration: underline;
-    color: black; /* Change title color to black */
+    color: black;
 }
 
 /* Category list */
 .category-list {
     list-style-type: none;
     padding: 0;
-    margin: 0 auto; /* Center the list */
-    max-width: 600px; /* Limit width to improve readability */
+    margin: 0 auto;
+    max-width: 600px;
 }
 
 .category-list li {
     margin-bottom: 10px;
     font-size: 1.2em;
-    background-color: #f8f9fa; /* Light background color for better contrast */
+    background-color: #f8f9fa;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Footer */
+
+/* Style du pied de page */
 footer {
     background-color: #343a40;
     color: #fff;

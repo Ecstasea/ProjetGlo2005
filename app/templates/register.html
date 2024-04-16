@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <h2>Register</h2>
+    <h2>Créer un compte</h2>
     <form method="POST" action="{{ url_for('register') }}">
         <div class="form-group">
             <label for="nom">Nom:</label><br>
@@ -43,5 +43,11 @@
         {% endif %}
         <button type="submit">Register</button>
     </form>
+
+    <footer>
+        <div class="container">
+            <p>Thomas Florian Devincenzi & Mattieu Girard-Métivier & Samuel Verreault</p>
+        </div>
+    </footer>
 </body>
 </html>
