@@ -15,9 +15,8 @@
             <h1 id="titre">Recettes de chez Nous</h1>
             <ul>
                 <li><a href="#">Recettes</a></li>
-                <!-- Modified part: Link to the ingredient list page -->
                 <li><a href="{{ url_for('show_ingredients') }}">Ingrédients</a></li>
-                <li><a href="{{ url_for('categories') }}">Catégories</a></li> <!-- Modified: Link to the categories page -->
+                <li><a href="{{ url_for('categories') }}">Catégories</a></li>
                 {% if 'user_id' in session %}
                 {% if cuisinier %}
                 <li><a href="{{ url_for('create_recipe') }}">Créer une recette</a></li>
@@ -35,7 +34,7 @@
     <div class="container">
         <!-- Barre de recherche -->
         <div class="search-bar">
-            <input type="text" id="searchQuery" placeholder="Search for recipes..." oninput="filterRecipes()">
+            <input type="text" id="searchQuery" placeholder="Recherche de recette..." oninput="filterRecipes()">
         </div>
         <!-- Section de présentation des recettes -->
         <section class="recipes">

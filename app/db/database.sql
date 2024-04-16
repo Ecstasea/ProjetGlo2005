@@ -486,3 +486,16 @@ VALUES ('nom', 'Prénom', 'email@example.com', 25, 'pseudo_utilisateur', '123', 
 UPDATE utilisateurs
 SET bool_cuisinier = 1
 WHERE id = '1';
+
+SELECT * FROM Recettes ;
+SELECT * FROM Recette_ingredients ;
+SELECT * FROM Cuisiniers ;
+SELECT * FROM Categorie_recettes;
+SELECT * FROM Type_recettes;
+SELECT * FROM Difficulte_recettes;
+SELECT * FROM Cuisinier_recettes;
+SELECT * FROM Ingredients ;
+SELECT * FROM Utilisateurs  ;
+
+SELECT * FROM Utilisateurs ORDER BY id DESC ;
+SELECT * FROM cuisiniers ORDER BY id DESC ;
